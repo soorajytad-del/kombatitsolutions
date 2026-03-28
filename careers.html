@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Kombat IT Solutions</title>
+    <script>
+        // Inline script to strictly prevent white-flash in dark mode
+        const saved = localStorage.getItem('kombatTheme');
+        const prefersDarkStr = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDarkStr)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-main text-body">
+
+    <!-- Preloader is omitted for the Careers page for faster UX loading if desired, or can be kept. We will omit it for subpages to allow instant loading. -->
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="navbar container">
+            <div class="logo">
+                <a href="index.html" class="logo-text">Kombat IT Solutions</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#clients">Our Clients</a></li>
+                <li><a href="careers.html" class="active text-primary">Careers</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="theme-toggle" id="theme-toggle" title="Toggle Light/Dark Theme">
+                    <i class="fas fa-moon dark-icon"></i>
+                    <i class="fas fa-sun light-icon" style="display:none;"></i>
+                </div>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header Hero -->
+    <div class="page-header bg-parallax parallax-careers">
+        <div class="container fade-in-up">
+            <h1>Join Our Team</h1>
+            <p>Build the future of enterprise IT infrastructure in Kerala.</p>
+        </div>
+    </div>
+
+    <!-- Culture Section -->
+    <section class="section-padding bg-parallax parallax-culture">
+        <div class="container scroll-reveal">
+            <div class="text-center">
+                <span class="subtitle">Why Kombat IT?</span>
+                <h2 class="section-title">A Culture of Excellence</h2>
+                <p class="section-desc">We foster an environment where technical brilliance meets continuous growth. Joining us means solving complex infrastructure problems for top-tier financial organizations.</p>
+            </div>
+            
+            <div class="services-grid" style="margin-top: 2rem;">
+                <div class="service-card shadow-box delay-1 scroll-reveal">
+                    <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3>Top-Tier Projects</h3>
+                    <p>Work directly with critical banking systems matching enterprise standards from day one.</p>
+                </div>
+                <div class="service-card shadow-box delay-2 scroll-reveal">
+                    <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Skill Growth</h3>
+                    <p>Continuous learning programs, technical certifications, and dedicated mentorship.</p>
+                </div>
+                <div class="service-card shadow-box delay-1 scroll-reveal">
+                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Job Security</h3>
+                    <p>A highly stable work environment backed by our foundational contracts in the financial sector.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Positions Section -->
+    <section class="section-padding bg-section">
+        <div class="container scroll-reveal">
+            <div class="text-center">
+                <span class="subtitle">Hiring Now</span>
+                <h2 class="section-title">Open Positions</h2>
+                <p class="section-desc">Explore our current opportunities and find exactly where you fit in.</p>
+            </div>
+
+            <div class="jobs-grid">
+                <!-- Job 1 -->
+                <div class="job-card scroll-reveal">
+                    <div class="job-image">
+                        <img src="assets/images/network_engineer.png" alt="Senior Network Engineer Server Room">
+                    </div>
+                    <div class="job-info">
+                        <h3>Senior Network Engineer</h3>
+                        <div class="job-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Irinjalakuda, Thrissur</span>
+                            <span><i class="fas fa-briefcase"></i> Full-Time</span>
+                        </div>
+                        <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.95rem;">Design and implement secure banking networks. Requires 4+ years of Cisco/Juniper experience.</p>
+                    </div>
+                    <div class="job-action">
+                        <a href="https://wa.me/918592908234?text=Hello,%20I%20would%20like%20to%20apply%20for%20the%20Senior%20Network%20Engineer%20position." target="_blank" class="btn btn-primary">Apply Now</a>
+                    </div>
+                </div>
+
+                <!-- Job 2 -->
+                <div class="job-card scroll-reveal delay-1">
+                    <div class="job-image">
+                        <img src="assets/images/hardware_support.png" alt="Hardware Support Specialist repairing Server">
+                    </div>
+                    <div class="job-info">
+                        <h3>Hardware Support Specialist</h3>
+                        <div class="job-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Field Operations - Kerala</span>
+                            <span><i class="fas fa-briefcase"></i> Full-Time</span>
+                        </div>
+                        <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.95rem;">Provide immediate on-site break/fix support for enterprise servers and workstations.</p>
+                    </div>
+                    <div class="job-action">
+                        <a href="https://wa.me/918592908234?text=Hello,%20I%20would%20like%20to%20apply%20for%20the%20Hardware%20Support%20Specialist%20position." target="_blank" class="btn btn-primary">Apply Now</a>
+                    </div>
+                </div>
+                
+                <!-- Job 3 -->
+                <div class="job-card scroll-reveal delay-2">
+                    <div class="job-image">
+                        <img src="assets/images/printer_tech.png" alt="Printer Technician fixing enterprise printer">
+                    </div>
+                    <div class="job-info">
+                        <h3>Printer & Peripheral Technician</h3>
+                        <div class="job-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Irinjalakuda, Thrissur</span>
+                            <span><i class="fas fa-briefcase"></i> Full-Time</span>
+                        </div>
+                        <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.95rem;">Specialize in the maintenance and repair of enterprise scanners and banking printer hardware.</p>
+                    </div>
+                    <div class="job-action">
+                        <a href="https://wa.me/918592908234?text=Hello,%20I%20would%20like%20to%20apply%20for%20the%20Printer%20and%20Peripheral%20Technician%20position." target="_blank" class="btn btn-primary">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center scroll-reveal">
+            <p>&copy; 2026 Kombat IT Solutions. Edakkulam, Irinjalakuda, Thrissur. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+            </div>
+            <p class="creator-credits">
+                Created with <i class="fas fa-heart pulse-heart"></i> by <a href="https://instagram.com/zoorajvs" target="_blank" class="creator-link">Sooraj</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-popup" class="cookie-popup shadow-box">
+        <div class="cookie-content">
+            <h4><i class="fas fa-cookie-bite text-primary"></i> Cookie Consent</h4>
+            <p>We use cookies to enhance your browsing experience and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.</p>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="btn btn-primary">Accept All</button>
+                <button id="decline-cookies" class="btn btn-outline" style="color: var(--text-body); border-color: var(--border-color);">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Tools Floating Menu -->
+    <div class="fab-wrapper" id="fab-wrapper">
+        <div class="fab-menu" id="fab-menu">
+            <button class="fab-item btn-scroll-top" id="btn-top-scroll" title="Back to Top"><i class="fas fa-chevron-up"></i></button>
+            <button class="fab-item btn-cart" id="btn-cart" title="View Cart"><i class="fas fa-shopping-cart"></i></button>
+            <button class="fab-item btn-refresh" id="btn-refresh" title="Refresh Page"><i class="fas fa-sync-alt"></i></button>
+        </div>
+        <button class="fab-main shadow-box" id="fab-main" title="Quick Tools">
+            <i class="fas fa-toolbox main-icon"></i>
+            <i class="fas fa-times close-icon"></i>
+        </button>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kombat IT Solutions | Trusted Tech Partner for Kerala</title>
+    <script>
+        // Inline script to strictly prevent white-flash in dark mode
+        const saved = localStorage.getItem('kombatTheme');
+        const prefersDarkStr = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDarkStr)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+    <!-- Google Fonts: Roboto & Open Sans for corporate feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content text-center">
+            <div class="loader-rings">
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+            </div>
+            <h1 class="loader-text">KOMBAT IT SOLUTIONS</h1>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="header">
+        <nav class="navbar container">
+            <div class="logo">
+                <a href="index.html" class="logo-text">Kombat IT Solutions</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#clients">Our Clients</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="theme-toggle" id="theme-toggle" title="Toggle Light/Dark Theme">
+                    <i class="fas fa-moon dark-icon"></i>
+                    <i class="fas fa-sun light-icon" style="display:none;"></i>
+                </div>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <img src="assets/images/corporate_hero_bg.png" alt="Corporate Server Room">
+            <div class="overlay"></div>
+        </div>
+        <div class="hero-content container">
+            <div class="hero-text-box fade-in-up">
+                <h1>Trusted IT Infrastructure for <span class="text-primary animated-gradient">Financial Institutions</span></h1>
+                <p>Delivering enterprise-grade computer hardware, robust networking, and dedicated support for banking partners across Kerala.</p>
+                <div class="cta-buttons">
+                    <a href="#services" class="btn btn-primary">Explore Services</a>
+                    <a href="#contact" class="btn btn-outline">Contact the Experts</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <div class="trust-banner fade-in-up">
+        <div class="container trust-grid">
+            <div class="trust-item"><i class="fas fa-handshake"></i> Kerala's Banking Tech Partner</div>
+            <div class="trust-item"><i class="fas fa-tools"></i> 24/7 Priority Hardware Support</div>
+            <div class="trust-item"><i class="fas fa-network-wired"></i> Secure Network Installations</div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="about section-padding bg-parallax parallax-about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text scroll-reveal">
+                    <h2 class="section-title">About Kombat IT Solutions</h2>
+                    <h3 class="subtitle">Located in Edakkulam, Irinjalakuda, Thrissur</h3>
+                    <p>At <strong>Kombat IT Solutions</strong>, we understand that for financial institutions and modern enterprises, downtime is not an option. We are a premier IT service provider dedicated to ensuring the continuous, secure operation of your critical business infrastructure.</p>
+                    <p>Specializing in comprehensive computer hardware services, advanced networking architecture, and peripheral integration (printers & scanners), we bridge the gap between technology and reliable business operations across Kerala.</p>
+                    <ul class="check-list">
+                        <li><i class="fas fa-check-circle"></i> Certified IT Professionals</li>
+                        <li><i class="fas fa-check-circle"></i> Enterprise Hardware Procurement</li>
+                        <li><i class="fas fa-check-circle"></i> Specialized Support for Banks</li>
+                    </ul>
+                </div>
+                <div class="about-image scroll-reveal delay-1">
+                    <div class="image-wrapper shadow-box">
+                        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Professional IT Support Team">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section-padding bg-parallax parallax-services">
+        <div class="container">
+            <div class="text-center scroll-reveal">
+                <h2 class="section-title">Our Specialized Services</h2>
+                <p class="section-desc">Tailored technological solutions for demanding corporate environments.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card shadow-box scroll-reveal">
+                    <div class="card-icon"><i class="fas fa-desktop"></i></div>
+                    <h3>Computer Hardware Services</h3>
+                    <p>Comprehensive maintenance, repair, and systematic upgrades for enterprise workstations and critical server hardware infrastructure.</p>
+                </div>
+                <div class="service-card shadow-box scroll-reveal delay-1">
+                    <div class="card-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h3>Networking Services</h3>
+                    <p>End-to-end secure network design, deployment, and management specifically configured for financial data security standards.</p>
+                </div>
+                <div class="service-card shadow-box scroll-reveal delay-2">
+                    <div class="card-icon"><i class="fas fa-print"></i></div>
+                    <h3>Printers & Scanners</h3>
+                    <p>Sales, integration, and prompt servicing for high-volume enterprise printing and secure digital scanning equipment.</p>
+                </div>
+                <div class="service-card shadow-box scroll-reveal">
+                    <div class="card-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>Computer Sales & Service</h3>
+                    <p>Procurement of top-tier desktop and laptop systems with full lifecycle support and immediate component replacement.</p>
+                </div>
+                <div class="service-card shadow-box scroll-reveal delay-1">
+                    <div class="card-icon"><i class="fas fa-university"></i></div>
+                    <h3>Banking IT Support</h3>
+                    <p>Dedicated contracts and rapid-response teams ensuring continuous uptime for banking partners and financial institutions.</p>
+                </div>
+                <div class="service-card shadow-box scroll-reveal delay-2">
+                    <div class="card-icon"><i class="fas fa-server"></i></div>
+                    <h3>Enterprise Solutions</h3>
+                    <p>Data backup, secure local servers, and customized software integration for companies operating throughout Kerala.</p>
+                </div>
+            </div>
+            <div class="text-center mt-5 scroll-reveal">
+                <a href="https://wa.me/918592908234?text=Hello!%20I%20am%20interested%20in%20requesting%20a%20professional%20IT%20service%20from%20Kombat%20IT%20Solutions." target="_blank" class="btn btn-primary btn-large">Request a Professional Service</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clients" class="clients section-padding text-center bg-parallax parallax-clients">
+        <div class="container scroll-reveal">
+            <h2 class="section-title text-white">Trusted by Kerala's Finest</h2>
+            <p class="section-desc text-light">We are proud to be the continuous backbone for numerous financial institutions.</p>
+        <div class="marquee-wrapper">
+            <div class="client-logos scroll">
+                <img src="assets/images/clients/SBI.webp" alt="SBI" class="client-logo-img">
+                <img src="assets/images/clients/itu bank.jpg" alt="ITU Bank" class="client-logo-img">
+                <img src="assets/images/clients/nattika firka.jpg" alt="Nattika Firka" class="client-logo-img">
+                <img src="assets/images/clients/oushadi.png" alt="Oushadi" class="client-logo-img">
+                <img src="assets/images/clients/thirunellur.jpg" alt="Thirunellur" class="client-logo-img">
+                <!-- Duplicate for seamless scroll -->
+                <img src="assets/images/clients/SBI.webp" alt="SBI" class="client-logo-img">
+                <img src="assets/images/clients/itu bank.jpg" alt="ITU Bank" class="client-logo-img">
+                <img src="assets/images/clients/nattika firka.jpg" alt="Nattika Firka" class="client-logo-img">
+            </div>
+        </div>
+
+        <!-- Client Testimonials -->
+        <div class="testimonials-grid" style="margin-top: 5rem;">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card shadow-box scroll-reveal">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p class="testimonial-text">"Kombat IT Solutions has been our go-to partner for hardware maintenance. Their 24/7 priority support saved our core banking nodes during a critical system upgrade."</p>
+                <div class="testimonial-author">
+                    <span class="author-name">Anand Padmanabhan</span><br>
+                    <span class="author-position">Operations Manager, South Indian Bank</span>
+                </div>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card shadow-box scroll-reveal delay-1">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p class="testimonial-text">"The most reliable IT support in Thrissur. Their expertise in network security and periodic printer maintenance is unmatched for corporate environments."</p>
+                <div class="testimonial-author">
+                    <span class="author-name">Meera Satheesh</span><br>
+                    <span class="author-position">Branch Head, Kerala Gramin Bank</span>
+                </div>
+            </div>
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card shadow-box scroll-reveal delay-2">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p class="testimonial-text">"Their peripheral integration services—especially for our high-volume scanners and enterprise printing arrays—have streamlined our digital documentation process."</p>
+                <div class="testimonial-author">
+                    <span class="author-name">Vinayak R. Menon</span><br>
+                    <span class="author-position">IT Administrator, Nattika Firka Trust</span>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding bg-parallax parallax-contact">
+        <div class="container">
+            <div class="contact-grid shadow-box scroll-reveal">
+                <div class="contact-info bg-primary text-white">
+                    <h2>Contact Our Team</h2>
+                    <p>Reach out for service requests, hardware quotes, or enterprise contracts.</p>
+                    <ul class="info-list">
+                        <li><i class="fas fa-map-marker-alt"></i> <span><strong>Headquarters:</strong><br>Edakkulam, Irinjalakuda<br>Thrissur, Kerala</span></li>
+                        <li><i class="fas fa-phone-alt"></i> <span>+91 85929 08234</span></li>
+                        <li><i class="fas fa-envelope"></i> <span>support@kombatit.com</span></li>
+                    </ul>
+                </div>
+                <div class="contact-actions bg-white">
+                    <div class="actions-wrapper">
+                        <h3>Get in Touch Instantly</h3>
+                        <p class="actions-desc">Select the most convenient way to reach our support team.</p>
+                        
+                        <a href="https://wa.me/918592908234?text=Hello,%20I%20would%20like%20to%20get%20a%20hardware/service%20quote." target="_blank" class="btn btn-action btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Get Quote via WhatsApp
+                        </a>
+                        
+                        <a href="mailto:support@kombatit.com" class="btn btn-action btn-email">
+                            <i class="fas fa-envelope"></i> Write an Email
+                        </a>
+                        
+                        <a href="tel:+918592908234" class="btn btn-action btn-phone">
+                            <i class="fas fa-phone-alt"></i> Call Us Directly
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center scroll-reveal">
+            <p>&copy; 2026 Kombat IT Solutions. Edakkulam, Irinjalakuda, Thrissur. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+            </div>
+            <p class="creator-credits">
+                Created with <i class="fas fa-heart pulse-heart"></i> by <a href="https://instagram.com/zoorajvs" target="_blank" class="creator-link">Sooraj</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-popup" class="cookie-popup shadow-box">
+        <div class="cookie-content">
+            <h4><i class="fas fa-cookie-bite text-primary"></i> Cookie Consent</h4>
+            <p>We use cookies to enhance your browsing experience and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.</p>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="btn btn-primary">Accept All</button>
+                <button id="decline-cookies" class="btn btn-outline" style="color: var(--text-body); border-color: var(--border-color);">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Tools Floating Menu -->
+    <div class="fab-wrapper" id="fab-wrapper">
+        <div class="fab-menu" id="fab-menu">
+            <button class="fab-item btn-scroll-top" id="btn-top-scroll" title="Back to Top"><i class="fas fa-chevron-up"></i></button>
+            <button class="fab-item btn-cart" id="btn-cart" title="View Cart"><i class="fas fa-shopping-cart"></i></button>
+            <button class="fab-item btn-refresh" id="btn-refresh" title="Refresh Page"><i class="fas fa-sync-alt"></i></button>
+        </div>
+        <button class="fab-main shadow-box" id="fab-main" title="Quick Tools">
+            <i class="fas fa-toolbox main-icon"></i>
+            <i class="fas fa-times close-icon"></i>
+        </button>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

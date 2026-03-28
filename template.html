@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Template - Kombat IT Solutions</title>
+    <!-- Google Fonts: Roboto & Open Sans for corporate feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content text-center">
+            <div class="loader-rings">
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+            </div>
+            <h1 class="loader-text">KOMBAT IT SOLUTIONS</h1>
+        </div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="header" id="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-server text-primary"></i>
+                <span class="logo-text">Kombat IT Solutions</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#clients">Our Clients</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <i class="fas fa-sun theme-toggle" id="theme-toggle" title="Toggle Light/Dark Mode"></i>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header Hero -->
+    <div class="page-header bg-parallax parallax-template">
+        <div class="container fade-in-up">
+            <h1>Your Page Title</h1>
+            <p>Your engaging subheadline goes here.</p>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <section class="section-padding bg-main">
+        <div class="container scroll-reveal">
+            <div class="text-center">
+                <span class="subtitle">Placeholder</span>
+                <h2 class="section-title">Main Content Area</h2>
+                <p class="section-desc">You can duplicate this block to build out your unique page logic.</p>
+            </div>
+            
+            <div class="services-grid" style="margin-top: 2rem;">
+                <!-- Demo Grid Box -->
+                <div class="service-card shadow-box delay-1 scroll-reveal">
+                    <div class="card-icon"><i class="fas fa-cube"></i></div>
+                    <h3>Content Block</h3>
+                    <p>Sample content layout for your new future template page. Modify HTML to add different blocks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <div class="logo justify-content-center mb-1">
+                <i class="fas fa-server text-primary"></i>
+                <span class="logo-text">Kombat IT Solutions</span>
+            </div>
+            <p>Empowering Financial Infrastructure in Kerala.</p>
+            <div class="social-links mt-2">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="mt-2" style="font-size: 0.8rem;">&copy; 2026 Kombat IT Solutions. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-popup" class="cookie-popup">
+        <div class="cookie-content">
+            <h4><i class="fas fa-cookie-bite"></i> We Value Your Privacy</h4>
+            <p>Kombat IT Solutions uses cookies to ensure you get the best experience on our website. Accept to proceed.</p>
+        </div>
+        <div class="cookie-buttons">
+            <button id="btn-cookie-accept" class="btn btn-primary">Accept All</button>
+            <button id="btn-cookie-decline" class="btn btn-outline">Decline</button>
+        </div>
+    </div>
+
+    <!-- Inline Script to prevent FOUC (Flash of Unstyled Content) for themes -->
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light' || (!savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    </script>
+    <!-- Quick Tools Floating Menu -->
+    <div class="fab-wrapper" id="fab-wrapper">
+        <div class="fab-menu" id="fab-menu">
+            <button class="fab-item btn-scroll-top" id="btn-top-scroll" title="Back to Top"><i class="fas fa-chevron-up"></i></button>
+            <button class="fab-item btn-cart" id="btn-cart" title="View Cart"><i class="fas fa-shopping-cart"></i></button>
+            <button class="fab-item btn-refresh" id="btn-refresh" title="Refresh Page"><i class="fas fa-sync-alt"></i></button>
+        </div>
+        <button class="fab-main shadow-box" id="fab-main" title="Quick Tools">
+            <i class="fas fa-toolbox main-icon"></i>
+            <i class="fas fa-times close-icon"></i>
+        </button>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
