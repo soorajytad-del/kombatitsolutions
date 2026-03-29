@@ -1278,12 +1278,32 @@ img {
 
 .form-group {
     margin-bottom: 1.2rem;
+    position: relative;
+}
+
+.input-with-icon .input-icon {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    transition: var(--transition);
+    pointer-events: none;
+}
+
+.input-with-icon.align-top .input-icon {
+    top: 1.2rem;
+    transform: none;
+}
+
+.input-with-icon:focus-within .input-icon {
+    color: var(--brand-accent);
 }
 
 .form-control {
     width: 100%;
-    padding: 0.85rem 1rem;
-    background-color: var(--bg-main);
+    padding: 0.85rem 1rem 0.85rem 2.8rem;
+    background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     color: var(--text-main);
     border-radius: var(--radius);
@@ -1296,11 +1316,38 @@ img {
     outline: none;
     border-color: var(--brand-accent);
     box-shadow: 0 0 0 3px rgba(255, 60, 0, 0.1); /* Subtle brand accent glow */
+    background-color: var(--bg-main);
 }
 
 textarea.form-control {
     resize: vertical;
     min-height: 100px;
+}
+
+/* --- CUSTOM MODALS --- */
+.custom-modal {
+    position: fixed;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    padding: 2rem;
+    border-radius: var(--radius);
+    max-width: 450px;
+    width: 90%;
+    z-index: 9999;
+    transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.custom-modal.show {
+    bottom: 2rem;
+}
+
+.custom-modal .modal-content h4 {
+    color: var(--text-main);
 }
 
 .btn-submit {
@@ -1329,7 +1376,7 @@ textarea.form-control {
 .divider span {
     position: relative;
     z-index: 2;
-    background-color: var(--bg-surface);
+    background-color: var(--bg-card);
     padding: 0 1rem;
     color: var(--text-muted);
     font-size: 0.8rem;

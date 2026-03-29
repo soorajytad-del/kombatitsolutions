@@ -297,6 +297,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 7. Contact Form Submit Logic
     const contactForm = document.querySelector('.contact-form');
+    const successModal = document.getElementById('success-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+
+    if (closeModalBtn && successModal) {
+        closeModalBtn.addEventListener('click', () => {
+            successModal.classList.remove('show');
+        });
+    }
+
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -311,7 +320,10 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 btnSubmit.innerHTML = '<i class="fas fa-check"></i> Request Sent';
                 setTimeout(() => {
-                    alert('Thank you for reaching out to Kombat IT Solutions. Our enterprise team will contact you shortly.');
+                    if (successModal) {
+                        successModal.classList.add('show');
+                        if (typeof playNavBeep === 'function') playNavBeep(); // Beep on modal show
+                    }
                     contactForm.reset();
                     btnSubmit.innerHTML = originalText;
                     btnSubmit.disabled = false;
