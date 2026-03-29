@@ -5,8 +5,11 @@
     
     /* Light Mode Backgrounds */
     --bg-main: #FFFFFF;
+    --bg-main-rgb: 255, 255, 255;
     --bg-card: #FFFFFF;
+    --bg-card-rgb: 255, 255, 255;
     --bg-section: #F4F6F9;
+    --bg-section-rgb: 244, 246, 249;
     --bg-dark-section: #0A3D62; /* e.g., Clients section */
     --bg-footer: #062842;
     
@@ -32,8 +35,11 @@
 [data-theme="dark"] {
     /* Dark Mode Backgrounds */
     --bg-main: #0B1120;
+    --bg-main-rgb: 11, 17, 32;
     --bg-card: #151E2D;
+    --bg-card-rgb: 21, 30, 45;
     --bg-section: #0D1624;
+    --bg-section-rgb: 13, 22, 36;
     --bg-dark-section: #0B1120; /* Keep it dark */
     --bg-footer: #070B14;
     
@@ -162,8 +168,13 @@ img {
 .parallax-clients { background-image: url('../assets/images/clients_bg.png'); }
 .parallax-culture { background-image: url('../assets/images/culture_bg.png'); }
 .parallax-template { background-image: url('../assets/images/template_bg.png'); }
+.parallax-privacy { background-image: url('../assets/images/privacy_policy_bg.png'); }
 
-/* --- PAGE HEADER --- */
+/* Specific light overlay for Privacy page for extra visibility */
+.parallax-privacy::before {
+    background: rgba(11, 20, 31, 0.5) !important;
+}
+
 .page-header {
     padding: 140px 0 60px 0;
     text-align: center;
@@ -1510,4 +1521,34 @@ textarea.form-control {
     .section-title { font-size: 1.8rem; }
     .footer { padding: 2rem 0; }
     .last-updated { width: 100%; justify-content: center; }
+}
+
+/* --- PRIVACY LINK ENHANCEMENTS --- */
+.privacy-link {
+    color: var(--brand-accent) !important; /* Authentic Brand Blue */
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 6px 15px;
+    border: 1px solid rgba(0, 168, 255, 0.2);
+    border-radius: 6px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+    position: relative;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+}
+
+.privacy-link:hover {
+    color: #ffffff !important;
+    background: var(--brand-accent);
+    border-color: var(--brand-accent);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 168, 255, 0.3);
+}
+
+.privacy-link::after {
+    content: ' 🛡️';
+    font-size: 0.75rem;
+    opacity: 0.8;
 }

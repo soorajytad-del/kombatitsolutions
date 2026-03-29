@@ -256,29 +256,226 @@
             outline: none;
         }
 
-        /* User Top Bar */
-        .user-top-bar {
+        /* Enforce Capital Letters for Professional Identity */
+        #user-name, #organisation-name {
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        /* Highly Attractive Custom Checkbox for Privacy */
+        .agreement-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin: 2rem 0;
+            cursor: pointer;
+            user-select: none;
+            padding: 12px;
+            background: rgba(0, 168, 255, 0.03);
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .agreement-container:hover {
+            background: rgba(0, 168, 255, 0.08);
+        }
+
+        .custom-checkbox-wrapper {
             position: relative;
-            z-index: 1001;
-            background: var(--bg-section) !important;
-            border-bottom: 1px solid var(--border-color);
-            min-height: 40px;
+            min-width: 22px;
+            height: 22px;
+        }
+
+        .custom-checkbox-target {
+            opacity: 0;
+            position: absolute;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .custom-checkbox-box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 22px;
+            width: 22px;
+            background: var(--bg-section);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
+            justify-content: center;
+        }
+
+        .agreement-container:hover .custom-checkbox-box {
+            border-color: var(--brand-accent);
+        }
+
+        .custom-checkbox-target:checked ~ .custom-checkbox-box {
+            background: var(--brand-accent);
+            border-color: var(--brand-accent);
+            box-shadow: 0 0 15px rgba(0, 168, 255, 0.4);
+        }
+
+        .custom-checkbox-box::after {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: white;
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        .custom-checkbox-target:checked ~ .custom-checkbox-box::after {
+            display: block;
+        }
+
+        .agreement-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        /* User Dashboard Pill - Premium Floating Design */
+        .user-top-bar {
+            position: sticky;
+            top: 92px; /* Professional Gap from header */
+            z-index: 999;
+            background: rgba(var(--bg-card-rgb), 0.8) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--brand-accent);
+            border-radius: 50px; /* Modern Pill shape */
+            padding: 10px 30px;
+            margin-bottom: 3.5rem;
+            box-shadow: 0 10px 30px rgba(0, 168, 255, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .user-top-bar:hover {
+            transform: translateY(2px);
+            box-shadow: 0 15px 40px rgba(0, 168, 255, 0.25);
+            border-color: #ffffff;
         }
 
         .user-top-bar .container {
-            width: 100%;
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
-            padding: 5px 20px;
+            gap: 25px;
+            padding: 0;
+            white-space: nowrap;
+        }
+
+        /* Adjust top offset when header shrinks on scroll */
+        .header.scrolled + .page-header + .section-padding .user-top-bar {
+            top: 78px;
         }
 
         #btn-logout:hover {
             color: #ff4757 !important;
             border-color: #ff4757 !important;
             background: rgba(255, 71, 87, 0.1) !important;
+        }
+
+        /* Responsive Dashboard Adjustments */
+        @media (max-width: 768px) {
+            .user-top-bar {
+                top: 85px;
+                padding: 15px 20px;
+                border-radius: 20px;
+                max-width: 92%;
+                margin-bottom: 2rem;
+                overflow: hidden;
+            }
+
+            .user-top-bar.minimized {
+                max-width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .user-top-bar.minimized .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+            }
+
+            .user-top-bar.minimized #user-greeting,
+            .user-top-bar.minimized #btn-logout {
+                display: none !important;
+            }
+            .user-top-bar.minimized .mobile-bubble-icon {
+                display: block !important;
+                font-size: 1.5rem;
+                color: var(--brand-accent);
+                animation: bubblePulse 2.5s infinite;
+            }
+
+            .user-top-bar.minimized {
+                animation: bubbleBeats 2s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+
+            .user-top-bar .container {
+                flex-direction: column;
+                gap: 12px;
+                white-space: normal;
+                text-align: center;
+            }
+            #user-greeting {
+                flex-direction: column;
+                gap: 5px;
+            }
+            #user-greeting span:nth-child(3) {
+                display: none; /* Hide the separator pipe on mobile */
+            }
+        }
+
+        .toggle-dashboard {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            display: none; /* Default hidden on desktop */
+        }
+
+        @media (max-width: 768px) {
+            .toggle-dashboard {
+                display: block;
+            }
+        }
+
+        /* Heartbeat Animation for Dashboard Bubble */
+        @keyframes bubblePulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 8px var(--brand-accent)); }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        @keyframes bubbleBeats {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(0, 168, 255, 0.2); }
+            5% { transform: scale(1.08); box-shadow: 0 10px 25px rgba(0, 168, 255, 0.4); }
+            10% { transform: scale(1); box-shadow: 0 4px 15px rgba(0, 168, 255, 0.2); }
+            15% { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0, 168, 255, 0.3); }
+            20% { transform: scale(1); box-shadow: 0 4px 15px rgba(0, 168, 255, 0.2); }
+            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(0, 168, 255, 0.2); }
         }
     </style>
 </head>
@@ -312,10 +509,16 @@
                     </div>
                 </div>
 
-                <div style="background: rgba(0, 168, 255, 0.05); border-left: 4px solid var(--brand-accent); padding: 12px; border-radius: 5px; margin: 1.5rem 0; text-align: left; font-size: 0.8rem; color: var(--text-muted);">
-                    <i class="fas fa-info-circle text-primary" style="margin-right: 8px;"></i>
-                    <strong>Privacy Disclaimer:</strong> We value your security. Your personal data is neither stored on our servers nor shared with third parties. Required strictly for business verification and order synchronization purposes.
-                </div>
+                <!-- Attractive Custom Checkbox -->
+                <label class="agreement-container">
+                    <div class="custom-checkbox-wrapper">
+                        <input type="checkbox" id="privacy-agreement" class="custom-checkbox-target" required>
+                        <div class="custom-checkbox-box"></div>
+                    </div>
+                    <span class="agreement-label">
+                        I acknowledge that I have read and agree to the <a href="privacy-policy.html" target="_blank" style="color: var(--brand-accent); text-decoration: underline; font-weight: 700;">Kombat IT Solutions Privacy Policy</a>. I understand my data is processed solely for B2B verification.
+                    </span>
+                </label>
 
                 <div style="display: grid; grid-template-columns: 2fr 1.2fr; gap: 10px; margin-top: 1.5rem;">
                     <button type="submit" class="btn btn-primary" style="padding: 1rem; border-radius: 8px; font-weight: 700; font-size: 1rem;"><i class="fas fa-unlock" style="margin-right: 8px;"></i> Login to Store</button>
@@ -370,17 +573,20 @@
     <!-- Store Section -->
     <section class="section-padding bg-main">
         <div class="container">
-            <!-- User Greeting Dashboard Bar -->
-            <div id="user-top-bar" class="user-top-bar scroll-reveal" style="display:none; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px 25px; margin-bottom: 3rem; box-shadow: var(--shadow-box);">
-                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                    <div id="user-greeting" style="font-size: 1.1rem;">
-                        <i class="fas fa-user-circle text-primary" style="margin-right: 10px;"></i>
-                        <span id="greeting-text">Good Morning</span>, 
-                        <strong id="display-name" class="text-primary" style="text-transform: uppercase;">John</strong> 
-                        <span style="color: var(--text-muted); margin: 0 15px;">|</span> 
-                        <span id="display-org" style="font-weight: 600; font-size: 0.95rem; color: var(--text-muted); text-transform: uppercase;"><i class="fas fa-building" style="margin-right: 5px;"></i>Kombat Corp</span>
+            <!-- User Greeting Dashboard Bar (Sticky & Minimizable) -->
+            <div id="user-top-bar" class="user-top-bar" style="display:none;" onclick="toggleDashboardBubble(event)">
+                <div class="toggle-dashboard" id="dash-toggle-btn" onclick="toggleDashboardManual(event)">
+                    <i class="fas fa-minus"></i>
+                </div>
+                <div class="container">
+                    <i class="fas fa-user-shield mobile-bubble-icon" style="display:none;"></i>
+                    <div id="user-greeting" style="font-size: 1rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-user-shield text-primary"></i>
+                        <span><span id="greeting-text">Good Morning</span>, <strong id="display-name" class="text-primary" style="text-transform: uppercase;">User</strong></span>
+                        <span style="color: var(--border-color); margin: 0 10px;">|</span>
+                        <span id="display-org" style="font-weight: 600; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase;"><i class="fas fa-building" style="margin-right: 5px;"></i>Kombat Partner</span>
                     </div>
-                    <button id="btn-logout" class="btn btn-outline" style="padding: 5px 20px; font-size: 0.85rem;"><i class="fas fa-sign-out-alt"></i> Logout from Shop</button>
+                    <button id="btn-logout" class="btn btn-outline" style="padding: 4px 15px; font-size: 0.8rem;"><i class="fas fa-power-off"></i> Logout</button>
                 </div>
             </div>
 
@@ -606,27 +812,27 @@
 
 
 
-    <!-- Success Modal -->
+    <!-- Standardized Message Modal (Success/Error) -->
     <div id="success-modal" class="custom-modal shadow-box">
         <div class="modal-content text-center" style="max-width: 500px;">
-            <i id="modal-icon" class="fas fa-check-double text-primary" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-            <h3 id="modal-title" class="animated-gradient">Order Request Sent!</h3>
+            <i id="modal-icon" class="fas fa-check-circle text-primary" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+            <h3 id="modal-title" class="animated-gradient">Action Successful!</h3>
             
             <div id="order-summary-display" style="display:none; text-align: left; background: var(--bg-section); padding: 1.5rem; border-radius: 10px; margin: 1rem 0; font-size: 0.9rem; border: 1px solid var(--border-color);">
                 <div id="modal-order-id" style="font-weight: 800; color: var(--brand-accent); margin-bottom: 10px; font-size: 1.1rem;">Order ID: #ORD-0000-KM</div>
-                <div id="modal-item-list" style="margin-bottom: 15px;">
+                <div id="modal-item-list" style="margin-bottom: 5px;">
                     <!-- Items JS -->
                 </div>
-                <div id="modal-total-value" style="border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 10px; font-weight: 800; font-size: 1.2rem; display: flex; justify-content: space-between;">
-                    <span>Total:</span>
+                <div id="modal-total-value" style="border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 10px; font-weight: 800; font-size: 1.1rem; display: flex; justify-content: space-between;">
+                    <span>Value:</span>
                     <span class="text-primary" id="final-total-modal">₹0</span>
                 </div>
             </div>
 
-            <p id="modal-desc">Added to your corporate cart.</p>
+            <p id="modal-desc" style="color: var(--text-muted); margin-bottom: 1.5rem;">Added to your corporate cart.</p>
 
-            <div id="screenshot-notice" style="display:none; background: rgba(255, 121, 121, 0.1); color: #ff7979; padding: 10px; border-radius: 5px; font-size: 0.85rem; margin-bottom: 1.5rem; border-left: 4px solid #ff7979; text-align: left;">
-                <i class="fas fa-camera" style="margin-right: 8px;"></i> <strong>Action Required:</strong> Please take a <b>screenshot</b> of this page for your future references.
+            <div id="screenshot-notice" style="display:none; background: rgba(0, 168, 255, 0.05); color: var(--brand-accent); padding: 10px; border-radius: 5px; font-size: 0.85rem; margin-bottom: 1.5rem; border-left: 4px solid var(--brand-accent); text-align: left;">
+                <i class="fas fa-camera" style="margin-right: 8px;"></i> <strong>Note:</strong> Transaction initiated. Please take a <b>screenshot</b> of this page.
             </div>
 
             <div class="modal-footer" style="display: flex; gap: 10px; justify-content: center; margin-top: 1.5rem;">
@@ -662,6 +868,9 @@
     <footer class="footer">
         <div class="container text-center scroll-reveal">
             <p>&copy; 2026 Kombat IT Solutions. XII/296, Edakulam(P.O), Thrissur. All Rights Reserved.</p>
+            <div class="footer-links" style="margin: 10px 0;">
+                <a href="privacy-policy.html" class="privacy-link">Privacy Policy</a>
+            </div>
             <div class="social-links">
                 <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
@@ -698,6 +907,41 @@
             document.getElementById('display-name').innerText = userData.name;
             document.getElementById('display-org').innerText = userData.org;
             document.getElementById('user-top-bar').style.display = 'flex';
+
+            // Intelligent Sticky Auto-Toggle
+            window.addEventListener('scroll', () => {
+                const bar = document.getElementById('user-top-bar');
+                if (window.innerWidth <= 768) {
+                    // Auto-EXPAND when scrolling back to the top hero section
+                    if (window.scrollY < 50 && bar.classList.contains('minimized')) {
+                        bar.classList.remove('minimized');
+                        const icon = document.querySelector('#dash-toggle-btn i');
+                        if(icon) icon.className = "fas fa-minus";
+                    } 
+                    // Auto-MINIMIZE only after initial 5s and significantly scrolling down
+                    else if (window.scrollY > 200 && !bar.classList.contains('minimized')) {
+                        // We check a global variable/flag initialized during Greeting
+                        if (window.autoMinimizeAllowed) {
+                            bar.classList.add('minimized');
+                            const icon = document.querySelector('#dash-toggle-btn i');
+                            if(icon) icon.className = "fas fa-plus-circle";
+                        }
+                    }
+                }
+            });
+
+            // Initial 5-second lock window
+            window.autoMinimizeAllowed = false;
+            setTimeout(() => {
+                window.autoMinimizeAllowed = true;
+                // Force a check immediate after 5s if they're already down
+                if (window.scrollY > 200) {
+                     const bar = document.getElementById('user-top-bar');
+                     bar.classList.add('minimized');
+                     const icon = document.querySelector('#dash-toggle-btn i');
+                     if(icon) icon.className = "fas fa-plus-circle";
+                }
+            }, 5000);
         }
 
         document.getElementById('btn-logout').onclick = () => {
@@ -855,6 +1099,33 @@
                 if(idDisplay) idDisplay.style.display = 'none';
             }
         });
+
+        // Dashboard Bubble Toggle Logic (Mobile Only)
+        window.toggleDashboardManual = (e) => {
+            e.stopPropagation(); // Avoid triggering parent bubble toggle
+            const bar = document.getElementById('user-top-bar');
+            bar.classList.toggle('minimized');
+            
+            // CRITICAL FIX: Once a user manually interacts, we disable the auto-scroll-minimize for this session
+            window.autoMinimizeAllowed = false; 
+
+            const icon = document.querySelector('#dash-toggle-btn i');
+            if(bar.classList.contains('minimized')) {
+                icon.className = "fas fa-plus-circle"; // Professional plus for expansion
+            } else {
+                icon.className = "fas fa-minus";
+            }
+        };
+
+        window.toggleDashboardBubble = (e) => {
+            const bar = document.getElementById('user-top-bar');
+            if(window.innerWidth <= 768 && bar.classList.contains('minimized')) {
+                bar.classList.remove('minimized');
+                window.autoMinimizeAllowed = false; // Disable auto-minimize as user manually opened it
+                const icon = document.querySelector('#dash-toggle-btn i');
+                if(icon) icon.className = "fas fa-minus";
+            }
+        };
 
         updateUI();
     </script>

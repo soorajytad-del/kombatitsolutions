@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Kombat IT Solutions</title>
+    <script>
+        // Inline script to strictly prevent white-flash in dark mode
+        const saved = localStorage.getItem('kombatTheme');
+        const prefersDarkStr = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDarkStr)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-main text-body">
+
+    <!-- Preloader is omitted for consistent subpage UX -->
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="navbar container">
+            <div class="logo">
+                <a href="index.html" class="logo-text">Kombat IT Solutions</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="store.html">Store</a></li>
+                <li><a href="index.html#clients">Our Clients</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="theme-toggle" id="theme-toggle" title="Toggle Light/Dark Theme">
+                    <i class="fas fa-moon dark-icon"></i>
+                    <i class="fas fa-sun light-icon" style="display:none;"></i>
+                </div>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Header Hero -->
+    <div class="page-header bg-parallax parallax-privacy">
+        <div class="container scroll-reveal">
+            <h1 class="animated-gradient">Privacy Policy</h1>
+            <p>Transparency and data security are the foundation of our trust.</p>
+        </div>
+    </div>
+
+    <!-- Policy Content -->
+    <section class="section-padding bg-main">
+        <div class="container">
+            <!-- Language Toggle -->
+            <div class="scroll-reveal" style="display: flex; justify-content: flex-end; margin-bottom: 2rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+                <div style="background: var(--bg-section); padding: 5px; border-radius: 50px; border: 1px solid var(--border-color); display: flex; gap: 5px;">
+                    <button id="btn-en" class="btn btn-primary" style="padding: 8px 15px; font-size: 0.8rem; border-radius: 50px; min-width: 100px;">English</button>
+                    <button id="btn-ml" class="btn btn-outline" style="padding: 8px 15px; font-size: 0.8rem; border-radius: 50px; color: var(--text-body); border: none; min-width: 100px;">മലയാളം</button>
+                </div>
+            </div>
+
+            <!-- English Content -->
+            <div id="content-en" class="scroll-reveal" style="max-width: 900px; margin: 0 auto; line-height: 1.8;">
+                <h2 style="margin-bottom: 2rem; color: var(--text-heading);">Our Commitment to Your Privacy</h2>
+                <p style="margin-bottom: 1.5rem;">At Kombat IT Solutions, we value the trust you place in us when sharing your information. This Privacy Policy describes how we collect, use, and protect your professional data when you use our website and B2B portal.</p>
+
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 style="color: var(--brand-accent); margin-bottom: 1rem;"><i class="fas fa-database" style="margin-right: 10px;"></i> 1. Information We Collect</h3>
+                    <p>When you use our B2B Secure Portal or contact forms, we capture professional credentials such as:</p>
+                    <ul style="margin-left: 20px; list-style-type: square; margin-top: 10px;">
+                        <li>Full Name and Professional Title</li>
+                        <li>Organization or Firm Name (Optional)</li>
+                        <li>Business Email Address</li>
+                        <li>WhatsApp / Contact Number</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 style="color: var(--brand-accent); margin-bottom: 1rem;"><i class="fas fa-briefcase" style="margin-right: 10px;"></i> 2. How We Use Your Data</h3>
+                    <p>We use the captured information strictly for professional purposes:</p>
+                    <ul style="margin-left: 20px; list-style-type: square; margin-top: 10px;">
+                        <li><strong>Order Synchronization:</strong> Generating professional WhatsApp order requests and connecting you with the correct account manager.</li>
+                        <li><strong>Identity Verification:</strong> Ensuring that secure B2B pricing and catalog access restricted to professional clients.</li>
+                        <li><strong>Professional Support:</strong> Reaching out to you regarding hardware quotes or service inquiries.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 style="color: var(--brand-accent); margin-bottom: 1rem;"><i class="fas fa-user-shield" style="margin-right: 10px;"></i> 3. Data Protection & Sovereignty</h3>
+                    <p>We implement a <strong>Privacy-First Architecture</strong>:</p>
+                    <ul style="margin-left: 20px; list-style-type: square; margin-top: 10px;">
+                        <li><strong>No Server Storage:</strong> Your B2B login credentials are stored locally on your device (localStorage) and are never uploaded to a persistent database server.</li>
+                        <li><strong>No Third-Party Sharing:</strong> We do not sell, trade, or share your contact details with outside marketing firms or analytics partners.</li>
+                        <li><strong>Client Control:</strong> You can explicitly clear all session data at any time by using the "Logout" feature in the store or cart.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 style="color: var(--brand-accent); margin-bottom: 1rem;"><i class="fas fa-cookie-bite" style="margin-right: 10px;"></i> 4. Cookies & Local Storage</h3>
+                    <p>Our website uses essential technical cookies and local storage to maintain your theme preferences and your "Logged In" status for the shop. These are functional requirements and do not track you across the web.</p>
+                </div>
+
+                <div style="background: rgba(0, 168, 255, 0.05); border-left: 4px solid var(--brand-accent); padding: 20px; border-radius: 10px; margin-top: 3rem;">
+                    <h4 style="margin-bottom: 10px;"><i class="fas fa-envelope-open-text" style="margin-right: 10px;"></i> Contact Us</h4>
+                    <p>If you have any questions regarding our security protocols or how your data is handled, please contact our Compliance Officer at <strong>support@kombat.in</strong> or via our contact form.</p>
+                </div>
+                
+                <p style="margin-top: 3rem; font-size: 0.85rem; color: var(--text-muted);">Last Updated: March 29, 2026</p>
+            </div>
+
+            <!-- Malayalam Content -->
+            <div id="content-ml" class="scroll-reveal" style="max-width: 900px; margin: 0 auto; line-height: 2; display: none;">
+                <h2 style="margin-bottom: 2rem; color: var(--text-heading); font-family: inherit;">ഞങ്ങളുടെ സ്വകാര്യതാ പ്രതിബദ്ധത</h2>
+                <p style="margin-bottom: 1.5rem;">കോംബാറ്റ് ഐടി സൊല്യൂഷൻസിൽ, വിവരങ്ങൾ പങ്കുവെക്കുമ്പോൾ നിങ്ങൾ ഞങ്ങളിൽ അർപ്പിക്കുന്ന വിശ്വാസത്തെ ഞങ്ങൾ വിലമതിക്കുന്നു. ഞങ്ങളുടെ വെബ്‌സൈറ്റും ബി2ബി പോർട്ടലും ഉപയോഗിക്കുമ്പോൾ നിങ്ങളുടെ വിവരങ്ങൾ ഞങ്ങൾ എങ്ങനെ ശേഖരിക്കുകയും ഉപയോഗിക്കുകയും സംരക്ഷിക്കുകയും ചെയ്യുന്നു എന്ന് ഈ രീതി വിശദീകരിക്കുന്നു.</p>
+
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 style="color: var(--brand-accent); margin-bottom: 1rem;"><i class="fas fa-database" style="margin-right: 10px;"></i> 1. ഞങ്ങൾ ശേഖരിക്കുന്ന വിവരങ്ങൾ</h3>
+                    <p>ഞങ്ങളുടെ ബി2ബി സെക്യുർ പോർട്ടൽ അല്ലെങ്കിൽ കോൺടാക്റ്റ് ഫോമുകൾ ഉപയോഗിക്കുമ്പോൾ, ഞങ്ങൾ താഴെ പറയുന്ന വിവരങ്ങൾ ശേഖരിക്കുന്നു:</p>
+                    <ul style="margin-left: 20px; list-style-type: disc; margin-top: 10px;">
+                        <li>മുഴുവൻ പേരും തസ്തികയും</li>
+                        <li>സ്ഥാപനത്തിന്റെ അല്ലെങ്കിൽ ഫേമിന്റെ പേര് (ഓപ്ഷണൽ)</li>
+                        <li>ബിസിനസ് ഇമെയിൽ വിലാസം</li>
+                        <li>വാട്ട്‌സ്ആപ്പ് / കോൺടാക്റ്റ് നമ്പർ</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 style="color: var(--brand-accent); margin-bottom: 1rem;"><i class="fas fa-briefcase" style="margin-right: 10px;"></i> 2. വിവരങ്ങൾ എങ്ങനെ ഉപയോഗിക്കുന്നു</h3>
+                    <p>ശേഖരിച്ച വിവരങ്ങൾ കർശനമായി ഔദ്യോഗിക ആവശ്യങ്ങൾക്കായി മാത്രമാണ് ഉപയോഗിക്കുന്നത്:</p>
+                    <ul style="margin-left: 20px; list-style-type: disc; margin-top: 10px;">
+                        <li><strong>ഓർഡർ ഏകോപനം:</strong> പ്രൊഫഷണൽ വാട്ട്‌സ്ആപ്പ് ഓർഡർ അഭ്യർത്ഥനകൾ തയ്യാറാക്കുന്നതിനും ഉചിതമായ മാനേജറുമായി നിങ്ങളെ ബന്ധിപ്പിക്കുന്നതിനും.</li>
+                        <li><strong>തിരിച്ചറിയൽ പരിശോധന:</strong> ബി2ബി വിലകളും കാറ്റലോഗും അംഗീകൃത ഉപഭോക്താക്കൾക്ക് മാത്രമാണെന്ന് ഉറപ്പാക്കാൻ.</li>
+                        <li><strong>പ്രൊഫഷണൽ സപ്പോർട്ട്:</strong> ഹാർഡ്‌വെയർ ഉദ്ധരണികളെയോ സേവന അന്വേഷണങ്ങളെയോ കുറിച്ച് നിങ്ങളുമായി ബന്ധപ്പെടാൻ.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 style="color: var(--brand-accent); margin-bottom: 1rem;"><i class="fas fa-user-shield" style="margin-right: 10px;"></i> 3. ഡാറ്റ സുരക്ഷയും പരമാധികാരവും</h3>
+                    <p>ഞങ്ങൾ ഒരു <strong>പ്രൈവസി-ഫസ്റ്റ് ആർക്കിടെക്ചർ</strong> ആണ് നടപ്പിലാക്കുന്നത്:</p>
+                    <ul style="margin-left: 20px; list-style-type: disc; margin-top: 10px;">
+                        <li><strong>സെർവർ സ്റ്റോറേജ് ഇല്ല:</strong> നിങ്ങളുടെ ലോഗിൻ വിവരങ്ങൾ നിങ്ങളുടെ ഉപകരണത്തിൽ മാത്രമാണ് (localStorage) സംരക്ഷിക്കുന്നത്, ഇത് ഒരിക്കലും ഞങ്ങളുടെ സെർവറുകളിലേക്ക് അപ്‌ലോഡ് ചെയ്യില്ല.</li>
+                        <li><strong>മൂന്നാം കക്ഷികളുമായി പങ്കിടില്ല:</strong> നിങ്ങളുടെ വിവരങ്ങൾ ഞങ്ങൾ മറ്റാർക്കും വിൽക്കുകയോ കൈമാറുകയോ ചെയ്യില്ല.</li>
+                        <li><strong>ഉപഭോക്തൃ നിയന്ത്രണം:</strong> എപ്പോൾ വേണമെങ്കിലും "ലോഗൗട്ട്" ഓപ്ഷൻ ഉപയോഗിച്ച് നിങ്ങളുടെ വിവരങ്ങൾ നീക്കം ചെയ്യാവുന്നതാണ്.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 style="color: var(--brand-accent); margin-bottom: 1rem;"><i class="fas fa-cookie-bite" style="margin-right: 10px;"></i> 4. കുക്കികളും ലോക്കൽ സ്റ്റോറേജും</h3>
+                    <p>നിങ്ങളുടെ മുൻഗണനകളും ലോഗിൻ സ്റ്റാറ്റസും നിലനിർത്താൻ ഞങ്ങളുടെ വെബ്‌സൈറ്റ് അത്യാവശ്യമായ കുക്കികൾ ഉപയോഗിക്കുന്നു. ഇത് നിങ്ങളുടെ ഇന്റർനെറ്റ് ഉപയോഗത്തെ മറ്റ് വെബ്‌സൈറ്റുകളിൽ ട്രാക്ക് ചെയ്യില്ല.</p>
+                </div>
+
+                <div style="background: rgba(0, 168, 255, 0.05); border-left: 4px solid var(--brand-accent); padding: 20px; border-radius: 10px; margin-top: 3rem;">
+                    <h4 style="margin-bottom: 10px;"><i class="fas fa-envelope-open-text" style="margin-right: 10px;"></i> ഞങ്ങളുമായി ബന്ധപ്പെടുക</h4>
+                    <p>ഞങ്ങളുടെ സുരക്ഷാ പ്രോട്ടോക്കോളുകളെക്കുറിച്ചോ ഡാറ്റ കൈകാര്യം ചെയ്യുന്നതിനെക്കുറിച്ചോ നിങ്ങൾക്ക് എന്തെങ്കിലും ചോദ്യങ്ങളുണ്ടെങ്കിൽ, ദയവായി <strong>support@kombat.in</strong> എന്ന വിലാസത്തിലോ കോൺടാക്റ്റ് ഫോം വഴിയോ ബന്ധപ്പെടുക.</p>
+                </div>
+                
+                <p style="margin-top: 3rem; font-size: 0.85rem; color: var(--text-muted);">അവസാനമായി പുതുക്കിയത്: 2026 മാർച്ച് 29</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Language Toggle Logic
+        const btnEn = document.getElementById('btn-en');
+        const btnMl = document.getElementById('btn-ml');
+        const contentEn = document.getElementById('content-en');
+        const contentMl = document.getElementById('content-ml');
+
+        function switchLanguage(lang) {
+            if (lang === 'en') {
+                contentEn.style.display = 'block';
+                contentMl.style.display = 'none';
+                btnEn.className = 'btn btn-primary';
+                btnMl.className = 'btn btn-outline';
+                btnMl.style.border = 'none';
+            } else {
+                contentEn.style.display = 'none';
+                contentMl.style.display = 'block';
+                btnEn.className = 'btn btn-outline';
+                btnEn.style.border = 'none';
+                btnMl.className = 'btn btn-primary';
+            }
+            if (typeof playNavBeep === 'function') playNavBeep();
+        }
+
+        btnEn.addEventListener('click', () => switchLanguage('en'));
+        btnMl.addEventListener('click', () => switchLanguage('ml'));
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center scroll-reveal">
+            <p>&copy; 2026 Kombat IT Solutions. XII/296, Edakulam(P.O), Thrissur. All Rights Reserved.</p>
+            <div class="footer-links" style="margin: 10px 0;">
+                <a href="privacy-policy.html" class="privacy-link">Privacy Policy</a>
+            </div>
+            <div class="social-links">
+                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+            </div>
+            <p class="creator-credits">
+                Created with <i class="fas fa-heart pulse-heart"></i> by <a href="https://instagram.com/zoorajvs" target="_blank" class="creator-link">Sooraj</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-popup" class="cookie-popup shadow-box">
+        <div class="cookie-content">
+            <h4><i class="fas fa-cookie-bite text-primary"></i> Cookie Consent</h4>
+            <p>We use cookies to enhance your browsing experience and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.</p>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="btn btn-primary">Accept All</button>
+                <button id="decline-cookies" class="btn btn-outline" style="color: var(--text-body); border-color: var(--border-color);">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Tools Floating Menu -->
+    <div class="fab-wrapper" id="fab-wrapper">
+        <div class="fab-menu" id="fab-menu">
+            <button class="fab-item btn-scroll-top" id="btn-top-scroll" title="Back to Top"><i class="fas fa-chevron-up"></i></button>
+            <button class="fab-item btn-refresh" id="btn-refresh" title="Refresh Page"><i class="fas fa-sync-alt"></i></button>
+        </div>
+        <button class="fab-main shadow-box" id="fab-main" title="Quick Tools">
+            <i class="fas fa-toolbox main-icon"></i>
+            <i class="fas fa-times close-icon"></i>
+        </button>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
