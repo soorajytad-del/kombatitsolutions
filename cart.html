@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Kombat IT Solutions</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .parallax-cart { background-image: url('assets/images/cart_bg.png'); }
+        
+        .cart-container {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .cart-items-section {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cart-table th {
+            text-align: left;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .cart-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item td {
+            padding: 1.5rem 0;
+            vertical-align: middle;
+        }
+
+        .cart-product-cell {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .cart-product-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: var(--bg-section);
+        }
+
+        .cart-product-info h4 {
+            font-size: 1.1rem;
+            color: var(--text-heading);
+            margin-bottom: 0.2rem;
+        }
+
+        .cart-product-info span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-section);
+            padding: 5px 12px;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        .qty-btn {
+            background: none;
+            border: none;
+            color: var(--brand-accent);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        .qty-btn:hover { transform: scale(1.2); }
+
+        .qty-val {
+            font-weight: 700;
+            min-width: 25px;
+            text-align: center;
+        }
+
+        .btn-remove-item {
+            background: none;
+            border: none;
+            color: #ff4757;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .btn-remove-item:hover { transform: scale(1.2); color: #ff6b81; }
+
+        .cart-summary {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .summary-total {
+            border-top: 2px solid var(--border-color);
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--brand-accent);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            margin-top: 2rem;
+            padding: 1.2rem;
+            font-size: 1.1rem;
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .empty-cart-msg i {
+            font-size: 4rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 991px) {
+            .cart-container { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .cart-table th:nth-child(2), .cart-item td:nth-child(2) { display: none; }
+            .cart-product-cell { gap: 1rem; }
+            .cart-product-img { width: 60px; height: 60px; }
+        }
+
+        .login-form {
+            text-align: left;
+            margin-top: 1rem;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 0.8rem;
+        }
+
+        .login-form label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-section);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-heading);
+            font-size: 0.95rem;
+        }
+
+        .login-form input:focus {
+            border-color: var(--brand-accent);
+            outline: none;
+        }
+
+        /* User Top Bar */
+        .user-top-bar {
+            position: relative;
+            z-index: 1001;
+            background: var(--bg-section) !important;
+            border-bottom: 1px solid var(--border-color);
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-top-bar .container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 5px 20px;
+        }
+
+        #btn-logout:hover {
+            color: #ff4757 !important;
+            border-color: #ff4757 !important;
+            background: rgba(255, 71, 87, 0.1) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Shop Login Modal -->
+    <div id="shop-login-modal" class="custom-modal">
+        <div class="modal-content text-center" style="max-width: 500px; position: relative;">
+            <a href="index.html" style="position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5rem; text-decoration: none; transition: var(--transition);"><i class="fas fa-times"></i></a>
+            <i class="fas fa-shield-halved text-primary" style="font-size: 3.5rem; margin-bottom: 1.5rem;"></i>
+            <h2 class="animated-gradient">Secure B2B Portal</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Please provide your professional credentials to unlock the Kombat corporate hardware catalog.</p>
+            
+            <form id="b2b-login-form" class="login-form">
+                <div class="form-group">
+                    <label>Professional Full Name</label>
+                    <input type="text" id="user-name" placeholder="eg. John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>Organization / Firm (Optional)</label>
+                    <input type="text" id="organisation-name" placeholder="eg. Kombat IT Solutions">
+                </div>
+                <div class="form-group">
+                    <label>Business Email Address</label>
+                    <input type="email" id="user-email" placeholder="eg. professional@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp Number (10 Digits)</label>
+                    <div style="display: flex; gap: 0;">
+                        <input type="tel" id="user-phone" value="+91 " required style="border-radius: 12px; letter-spacing: 1px;" maxlength="14">
+                    </div>
+                </div>
+
+                <div style="background: rgba(0, 168, 255, 0.05); border-left: 4px solid var(--brand-accent); padding: 12px; border-radius: 5px; margin: 1.5rem 0; text-align: left; font-size: 0.8rem; color: var(--text-muted);">
+                    <i class="fas fa-info-circle text-primary" style="margin-right: 8px;"></i>
+                    <strong>Privacy Disclaimer:</strong> We value your security. Your personal data is neither stored on our servers nor shared with third parties. Required strictly for business verification and order synchronization purposes.
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1.2fr; gap: 10px; margin-top: 1.5rem;">
+                    <button type="submit" class="btn btn-primary" style="padding: 1rem; border-radius: 8px; font-weight: 700; font-size: 1rem;"><i class="fas fa-unlock" style="margin-right: 8px;"></i> Login to Store</button>
+                    <a href="index.html" class="btn btn-outline" style="padding: 1rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.9rem;"><i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Return Home</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content text-center">
+            <div class="loader-rings"><div class="ring"></div><div class="ring"></div><div class="ring"></div></div>
+            <h1 class="loader-text">SECURE CART</h1>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar container">
+            <div class="logo">
+                <a href="index.html" class="logo-text">Kombat IT Solutions</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="store.html">Store</a></li>
+                <li><a href="index.html#clients">Our Clients</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="theme-toggle" id="theme-toggle"><i class="fas fa-moon dark-icon"></i><i class="fas fa-sun light-icon" style="display:none;"></i></div>
+                <div class="hamburger"><i class="fas fa-bars"></i></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header bg-parallax parallax-cart">
+        <div class="container scroll-reveal">
+            <h1 class="animated-gradient">Your Shopping Cart</h1>
+            <p>Review your selected hardware and proceed to secure checkout.</p>
+        </div>
+    </div>
+
+    <!-- Main Section -->
+    <section class="section-padding bg-main">
+        <div class="container">
+            <!-- User Greeting Dashboard Bar -->
+            <div id="user-top-bar" class="user-top-bar scroll-reveal" style="display:none; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px 25px; margin-bottom: 2rem; box-shadow: var(--shadow-box);">
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <div id="user-greeting" style="font-size: 1.1rem;">
+                        <i class="fas fa-user-circle text-primary" style="margin-right: 10px;"></i>
+                        <span id="greeting-text">Good Morning</span>, 
+                        <strong id="display-name" class="text-primary" style="text-transform: uppercase;">John</strong> 
+                        <span style="color: var(--text-muted); margin: 0 15px;">|</span> 
+                        <span id="display-org" style="font-weight: 600; font-size: 0.95rem; color: var(--text-muted); text-transform: uppercase;"><i class="fas fa-building" style="margin-right: 5px;"></i>Kombat Corp</span>
+                    </div>
+                    <button id="btn-logout" class="btn btn-outline" style="padding: 5px 20px; font-size: 0.85rem;"><i class="fas fa-sign-out-alt"></i> Logout from Shop</button>
+                </div>
+            </div>
+
+            <div id="cart-content-wrapper" class="cart-container scroll-reveal">
+                <!-- Left: Items -->
+                <div class="cart-items-section">
+                    <table class="cart-table" id="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items-body">
+                            <!-- JS Inject -->
+                        </tbody>
+                    </table>
+                    <div id="empty-msg" class="empty-cart-msg" style="display:none;">
+                        <i class="fas fa-shopping-basket"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Explore our store to add enterprise hardware.</p>
+                        <a href="store.html" class="btn btn-primary" style="margin-top: 1.5rem;">Return to Store</a>
+                    </div>
+                </div>
+
+                <!-- Right: Summary -->
+                <div class="cart-summary" id="cart-summary-box">
+                    <h3>Order Summary</h3>
+                    <div class="mt-2">
+                        <div class="summary-row"><span>Subtotal:</span> <span id="subtotal">₹0</span></div>
+                        <div class="summary-row"><span>Corporate Discount:</span> <span>-₹0</span></div>
+                        <div class="summary-row"><span>Shipping:</span> <span class="text-primary">FREE</span></div>
+                        <div class="summary-row summary-total"><span>Total:</span> <span id="final-total">₹0</span></div>
+                    </div>
+                    <button class="btn btn-primary checkout-btn" id="btn-checkout">Checkout Now</button>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem;">
+                        <a href="store.html" class="btn btn-outline" style="border-color: var(--border-color); text-decoration: none; display: flex; align-items: center; justify-content: center;">Back to Store</a>
+                        <button class="btn btn-outline" id="btn-clear-cart" style="border-color: var(--border-color);">Clear Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="custom-modal shadow-box">
+        <div class="modal-content text-center" style="max-width: 500px;">
+            <i id="modal-icon" class="fas fa-check-double text-primary" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+            <h3 id="modal-title" class="animated-gradient">Order Request Sent!</h3>
+            
+            <div id="order-summary-display" style="text-align: left; background: var(--bg-section); padding: 1.5rem; border-radius: 10px; margin: 1rem 0; font-size: 0.9rem; border: 1px solid var(--border-color);">
+                <div id="modal-order-id" style="font-weight: 800; color: var(--brand-accent); margin-bottom: 10px; font-size: 1.1rem;">Order ID: #ORD-0000-KM</div>
+                <div id="modal-item-list" style="margin-bottom: 15px; max-height: 150px; overflow-y: auto;">
+                    <!-- Items JS -->
+                </div>
+                <div id="modal-total-value" style="border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 10px; font-weight: 800; font-size: 1.2rem; display: flex; justify-content: space-between;">
+                    <span>Total:</span>
+                    <span class="text-primary" id="final-total-modal">₹0</span>
+                </div>
+            </div>
+
+            <p id="modal-desc"></p>
+
+            <div style="background: rgba(255, 121, 121, 0.1); color: #ff7979; padding: 10px; border-radius: 5px; font-size: 0.85rem; margin-bottom: 1.5rem; border-left: 4px solid #ff7979;">
+                <i class="fas fa-camera" style="margin-right: 8px;"></i> <strong>Action Required:</strong> Please take a <b>screenshot</b> of this page for your future references. The cart has been cleared.
+            </div>
+
+            <button id="close-modal-final" class="btn btn-primary w-100">Finish & Return to Store</button>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logout-modal" class="custom-modal shadow-box">
+        <div class="modal-content text-center" style="max-width: 400px;">
+            <i class="fas fa-sign-out-alt text-danger" style="font-size: 3rem; margin-bottom: 1rem; color: #ff4757;"></i>
+            <h3 class="animated-gradient">Terminate Session?</h3>
+            <p>Logging out will clear your current cart and business profile from this device.</p>
+            <div class="modal-footer" style="display: flex; gap: 10px; justify-content: center; margin-top: 1.5rem;">
+                <button id="cancel-logout" class="btn btn-outline" style="min-width: 130px;">Wait, Stay</button>
+                <button id="confirm-logout" class="btn btn-primary" style="min-width: 130px; background: #ff4757; border-color: #ff4757;">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center scroll-reveal">
+            <p>&copy; 2026 Kombat IT Solutions. XII/296, Edakulam(P.O), Thrissur. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+            </div>
+            <p class="creator-credits">
+                Created with <i class="fas fa-heart pulse-heart"></i> by <a href="https://instagram.com/zoorajvs" target="_blank" class="creator-link">Sooraj</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        const products = {
+            'p1': { name: 'Kombat Pro-Workstation Elite', price: 85500, img: 'assets/images/products/workstation.png', sku: 'KOM-001' },
+            'p2': { name: 'Kombat Secure-Gate Router', price: 12400, img: 'assets/images/products/router.png', sku: 'KOM-102' },
+            'p3': { name: 'Kombat Multi-Center 5000', price: 45900, img: 'assets/images/products/printer.png', sku: 'KOM-201' },
+            'p4': { name: 'Kombat Vision-Wide 4K', price: 32500, img: 'assets/images/products/monitor.png', sku: 'KOM-304' },
+            'p5': { name: 'Kombat Optic-Scan 2000', price: 18200, img: 'assets/images/products/scanner.png', sku: 'KOM-205' },
+            'p6': { name: 'Kombat Power-Shield 3K', price: 14500, img: 'assets/images/products/ups.png', sku: 'KOM-506' },
+            'p7': { name: 'Kombat Mechanical-Tac', price: 4800, img: 'assets/images/products/keyboard.png', sku: 'KOM-607' },
+            'p8': { name: 'Kombat Precision-Pro', price: 2450, img: 'assets/images/products/mouse.png', sku: 'KOM-608' },
+            'p9': { name: 'Kombat Laser-Pulse Mini', price: 9800, img: 'assets/images/products/compact_printer.png', sku: 'KOM-209' }
+        };
+
+        let cartData = JSON.parse(localStorage.getItem('kombat_cart')) || {};
+        let userData = JSON.parse(localStorage.getItem('kombat_user'));
+
+        function checkShopAccess() {
+            if(!userData) {
+                document.getElementById('shop-login-modal').classList.add('show');
+                document.getElementById('user-top-bar').style.display = 'none';
+                document.body.style.overflow = 'hidden';
+            } else {
+                showUserGreeting();
+            }
+        }
+
+        function showUserGreeting() {
+            const hour = new Date().getHours();
+            let greet = "Good Evening";
+            if(hour < 12) greet = "Good Morning";
+            else if(hour < 17) greet = "Good Afternoon";
+
+            document.getElementById('greeting-text').innerText = greet;
+            document.getElementById('display-name').innerText = userData.name;
+            document.getElementById('display-org').innerText = userData.org;
+            document.getElementById('user-top-bar').style.display = 'flex';
+        }
+
+        document.getElementById('btn-logout').onclick = () => {
+            document.getElementById('logout-modal').classList.add('show');
+        };
+
+        document.getElementById('cancel-logout').onclick = () => {
+            document.getElementById('logout-modal').classList.remove('show');
+        };
+
+        document.getElementById('confirm-logout').onclick = () => {
+            localStorage.removeItem('kombat_user');
+            localStorage.removeItem('kombat_cart');
+            window.location.reload();
+        };
+
+        const phoneInput = document.getElementById('user-phone');
+        if(phoneInput) {
+            phoneInput.addEventListener('input', function() {
+                if(!this.value.startsWith('+91 ')) {
+                    this.value = '+91 ';
+                }
+                let nums = this.value.substring(4).replace(/\D/g, '');
+                if(nums.length > 10) nums = nums.substring(0, 10);
+                this.value = '+91 ' + nums;
+            });
+        }
+
+        document.getElementById('b2b-login-form').onsubmit = (e) => {
+            e.preventDefault();
+            const phoneVal = document.getElementById('user-phone').value;
+            const digitOnly = phoneVal.substring(4).replace(/\D/g, '');
+
+            if(digitOnly.length !== 10) {
+                const modal = document.getElementById('success-modal');
+                const mIcon = document.getElementById('modal-icon');
+                if(mIcon) mIcon.className = "fas fa-exclamation-circle text-danger";
+                document.getElementById('modal-title').innerText = "Verification Error";
+                document.getElementById('modal-desc').innerText = "Please enter exactly 10 digits for your professional WhatsApp number.";
+                document.getElementById('order-summary-display').style.display = 'none';
+                // Hide screenshot notice if it exists
+                const sn = document.getElementById('screenshot-notice');
+                if(sn) sn.style.display = 'none';
+                modal.classList.add('show');
+                return;
+            }
+
+            const uData = {
+                name: document.getElementById('user-name').value,
+                org: document.getElementById('organisation-name').value || 'INDIVIDUAL PROFESSIONAL',
+                email: document.getElementById('user-email').value,
+                phone: phoneVal
+            };
+            localStorage.setItem('kombat_user', JSON.stringify(uData));
+            window.location.href = 'store.html'; // REDIRECT TO STORE
+        };
+
+        checkShopAccess();
+
+        function renderCart() {
+            const body = document.getElementById('cart-items-body');
+            const emptyMsg = document.getElementById('empty-msg');
+            const cartTable = document.getElementById('cart-table');
+            const summaryBox = document.getElementById('cart-summary-box');
+            
+            body.innerHTML = '';
+            let subtotal = 0;
+
+            const activePids = Object.keys(cartData).filter(pid => cartData[pid] > 0);
+
+            if(activePids.length === 0) {
+                emptyMsg.style.display = 'block';
+                cartTable.style.display = 'none';
+                summaryBox.style.display = 'none';
+                return;
+            }
+
+            emptyMsg.style.display = 'none';
+            cartTable.style.display = 'table';
+            summaryBox.style.display = 'block';
+
+            activePids.forEach(pid => {
+                const product = products[pid];
+                const qty = cartData[pid];
+                const total = product.price * qty;
+                subtotal += total;
+
+                const row = document.createElement('tr');
+                row.className = 'cart-item';
+                row.innerHTML = `
+                    <td>
+                        <div class="cart-product-cell">
+                            <img src="${product.img}" class="cart-product-img">
+                            <div class="cart-product-info">
+                                <h4>${product.name}</h4>
+                                <span>${product.sku}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>₹${product.price.toLocaleString()}</td>
+                    <td>
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="updateQty('${pid}', -1)"><i class="fas fa-minus"></i></button>
+                            <span class="qty-val">${qty}</span>
+                            <button class="qty-btn" onclick="updateQty('${pid}', 1)"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <td><strong class="text-primary">₹${total.toLocaleString()}</strong></td>
+                    <td><button class="btn-remove-item" onclick="removeItem('${pid}')" title="Remove Item"><i class="fas fa-trash-alt"></i></button></td>
+                `;
+                body.appendChild(row);
+            });
+
+            document.getElementById('subtotal').innerText = `₹${subtotal.toLocaleString()}`;
+            document.getElementById('final-total').innerText = `₹${subtotal.toLocaleString()}`;
+        }
+
+        window.updateQty = (pid, delta) => {
+            cartData[pid] = (cartData[pid] || 0) + delta;
+            if(cartData[pid] < 0) cartData[pid] = 0;
+            if(cartData[pid] === 0) delete cartData[pid];
+            localStorage.setItem('kombat_cart', JSON.stringify(cartData));
+            renderCart();
+        };
+
+        window.removeItem = (pid) => {
+            delete cartData[pid];
+            localStorage.setItem('kombat_cart', JSON.stringify(cartData));
+            renderCart();
+        };
+
+        document.getElementById('btn-clear-cart').onclick = () => {
+            if(confirm("Are you sure you want to clear your cart?")) {
+                cartData = {};
+                localStorage.setItem('kombat_cart', JSON.stringify(cartData));
+                renderCart();
+            }
+        };
+
+        document.getElementById('btn-checkout').onclick = () => {
+            const activePids = Object.keys(cartData).filter(pid => cartData[pid] > 0);
+            if(activePids.length === 0) return;
+
+            // Generate Professional Order ID
+            const orderId = 'ORD-' + Math.floor(1000 + Math.random() * 9000) + '-KM';
+
+            let waMessage = `*Kombat IT Solutions - New Order Request [#${orderId}]*\n`;
+            waMessage += "----------------------------------------------\n\n";
+            waMessage += `• *Customer:* ${userData ? userData.name : 'Unknown'}\n`;
+            waMessage += `• *Company:* ${userData ? userData.org : 'N/A'}\n`;
+            waMessage += `• *Contact:* ${userData ? userData.phone : 'N/A'}\n`;
+            waMessage += "----------------------------------------------\n\n";
+            
+            let itemsHtml = "";
+            let total = 0;
+
+            activePids.forEach(pid => {
+                const p = products[pid];
+                const qty = cartData[pid];
+                const sub = p.price * qty;
+                total += sub;
+                waMessage += `• *${p.name}*\n  Qty: ${qty} | SKU: ${p.sku}\n  Subtotal: ₹${sub.toLocaleString()}\n\n`;
+                itemsHtml += `<div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                                <span>• ${p.name} (x${qty})</span>
+                                <span>₹${sub.toLocaleString()}</span>
+                              </div>`;
+            });
+
+            waMessage += "----------------------------------------------\n";
+            waMessage += `*Grand Total: ₹${total.toLocaleString()}*\n\n`;
+            waMessage += "_Please process this order and assign an account manager._";
+
+            // Open WhatsApp
+            const encodedMsg = encodeURIComponent(waMessage);
+            window.open(`https://wa.me/917025064441?text=${encodedMsg}`, '_blank');
+
+            // Populate and show final confirmation modal
+            document.getElementById('modal-order-id').innerText = `Order ID: #${orderId}`;
+            document.getElementById('modal-item-list').innerHTML = itemsHtml;
+            document.getElementById('final-total-modal').innerText = `₹${total.toLocaleString()}`;
+
+            // CLEAR CART
+            cartData = {};
+            localStorage.setItem('kombat_cart', JSON.stringify(cartData));
+            
+            const modal = document.getElementById('success-modal');
+            modal.classList.add('show');
+        };
+
+        const finalCloseBtn = document.getElementById('close-modal-final');
+        if(finalCloseBtn) finalCloseBtn.onclick = () => window.location.href = 'store.html';
+
+        renderCart();
+    </script>
+</body>
+</html>

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kombat Store | Premium Enterprise Hardware</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .parallax-store { background-image: url('assets/images/store_bg.png'); }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--brand-accent);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--brand-accent);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .product-qty-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #27ae60;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            z-index: 3;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: none;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: var(--brand-accent);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-id {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-heading);
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-heading);
+            margin-bottom: 1.5rem;
+        }
+
+        .product-price span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-left: 10px;
+            font-weight: 400;
+        }
+
+        .product-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .cart-controls {
+            display: none;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            align-items: center;
+            background: var(--bg-section);
+            border: 1px solid var(--brand-accent);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .cart-controls button {
+            background: none;
+            border: none;
+            color: var(--brand-accent);
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .cart-controls button:hover { background: rgba(0, 168, 255, 0.1); }
+
+        .cart-controls .qty-display {
+            text-align: center;
+            font-weight: 800;
+            color: var(--text-heading);
+            font-size: 1.1rem;
+        }
+
+        .btn-cart-add {
+            background: var(--bg-section);
+            color: var(--text-heading);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-cart-add:hover {
+            background: var(--brand-blue);
+            color: #fff;
+            border-color: var(--brand-blue);
+        }
+
+        @media (max-width: 480px) {
+            .product-actions { grid-template-columns: 1fr; }
+        }
+
+        /* Nav Cart Styling */
+        .nav-cart {
+            position: relative;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            transition: var(--transition);
+            margin-right: 15px;
+        }
+
+        .nav-cart:hover {
+            background: rgba(0, 168, 255, 0.1);
+            color: var(--brand-accent);
+        }
+
+        .nav-cart .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--brand-accent);
+            color: #fff;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+            border: 2px solid var(--bg-main);
+        }
+
+        .login-form {
+            text-align: left;
+            margin-top: 1rem;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 0.8rem;
+        }
+
+        .login-form label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-section);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-heading);
+            font-size: 0.95rem;
+        }
+
+        .login-form input:focus {
+            border-color: var(--brand-accent);
+            outline: none;
+        }
+
+        /* User Top Bar */
+        .user-top-bar {
+            position: relative;
+            z-index: 1001;
+            background: var(--bg-section) !important;
+            border-bottom: 1px solid var(--border-color);
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-top-bar .container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 5px 20px;
+        }
+
+        #btn-logout:hover {
+            color: #ff4757 !important;
+            border-color: #ff4757 !important;
+            background: rgba(255, 71, 87, 0.1) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Shop Login Modal -->
+    <div id="shop-login-modal" class="custom-modal">
+        <div class="modal-content text-center" style="max-width: 500px; position: relative;">
+            <a href="index.html" style="position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5rem; text-decoration: none; transition: var(--transition);"><i class="fas fa-times"></i></a>
+            <i class="fas fa-shield-halved text-primary" style="font-size: 3.5rem; margin-bottom: 1.5rem;"></i>
+            <h2 class="animated-gradient">Secure B2B Portal</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Please provide your professional credentials to unlock the Kombat corporate hardware catalog.</p>
+            
+            <form id="b2b-login-form" class="login-form">
+                <div class="form-group">
+                    <label>Professional Full Name</label>
+                    <input type="text" id="user-name" placeholder="eg. John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>Organization / Firm (Optional)</label>
+                    <input type="text" id="organisation-name" placeholder="eg. Kombat IT Solutions">
+                </div>
+                <div class="form-group">
+                    <label>Business Email Address</label>
+                    <input type="email" id="user-email" placeholder="eg. professional@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp Number (10 Digits)</label>
+                    <div style="display: flex; gap: 0;">
+                        <input type="tel" id="user-phone" value="+91 " required style="border-radius: 12px; letter-spacing: 1px;" maxlength="14">
+                    </div>
+                </div>
+
+                <div style="background: rgba(0, 168, 255, 0.05); border-left: 4px solid var(--brand-accent); padding: 12px; border-radius: 5px; margin: 1.5rem 0; text-align: left; font-size: 0.8rem; color: var(--text-muted);">
+                    <i class="fas fa-info-circle text-primary" style="margin-right: 8px;"></i>
+                    <strong>Privacy Disclaimer:</strong> We value your security. Your personal data is neither stored on our servers nor shared with third parties. Required strictly for business verification and order synchronization purposes.
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1.2fr; gap: 10px; margin-top: 1.5rem;">
+                    <button type="submit" class="btn btn-primary" style="padding: 1rem; border-radius: 8px; font-weight: 700; font-size: 1rem;"><i class="fas fa-unlock" style="margin-right: 8px;"></i> Login to Store</button>
+                    <a href="index.html" class="btn btn-outline" style="padding: 1rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.9rem;"><i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Return Home</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content text-center">
+            <div class="loader-rings"><div class="ring"></div><div class="ring"></div><div class="ring"></div></div>
+            <h1 class="loader-text">KOMBAT STORE</h1>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar container">
+            <div class="logo">
+                <a href="index.html" class="logo-text">Kombat IT Solutions</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="store.html" class="active">Store</a></li>
+                <li><a href="index.html#clients">Our Clients</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="nav-cart" id="header-cart" title="View Shopping Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <div class="theme-toggle" id="theme-toggle"><i class="fas fa-moon dark-icon"></i><i class="fas fa-sun light-icon" style="display:none;"></i></div>
+                <div class="hamburger"><i class="fas fa-bars"></i></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Store Header -->
+    <div class="page-header bg-parallax parallax-store">
+        <div class="container scroll-reveal">
+            <h1 class="animated-gradient">Kombat Store</h1>
+            <p>Direct access to enterprise-grade computer hardware and accessories.</p>
+        </div>
+    </div>
+
+    <!-- Store Section -->
+    <section class="section-padding bg-main">
+        <div class="container">
+            <!-- User Greeting Dashboard Bar -->
+            <div id="user-top-bar" class="user-top-bar scroll-reveal" style="display:none; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px 25px; margin-bottom: 3rem; box-shadow: var(--shadow-box);">
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <div id="user-greeting" style="font-size: 1.1rem;">
+                        <i class="fas fa-user-circle text-primary" style="margin-right: 10px;"></i>
+                        <span id="greeting-text">Good Morning</span>, 
+                        <strong id="display-name" class="text-primary" style="text-transform: uppercase;">John</strong> 
+                        <span style="color: var(--text-muted); margin: 0 15px;">|</span> 
+                        <span id="display-org" style="font-weight: 600; font-size: 0.95rem; color: var(--text-muted); text-transform: uppercase;"><i class="fas fa-building" style="margin-right: 5px;"></i>Kombat Corp</span>
+                    </div>
+                    <button id="btn-logout" class="btn btn-outline" style="padding: 5px 20px; font-size: 0.85rem;"><i class="fas fa-sign-out-alt"></i> Logout from Shop</button>
+                </div>
+            </div>
+
+            <div class="text-center scroll-reveal">
+                <span class="subtitle">Premium Inventory</span>
+                <h2 class="section-title">Featured Products</h2>
+                <p class="section-desc">Certified hardware solutions with 24/7 priority Kombat support contracts.</p>
+            </div>
+
+            <div class="products-grid">
+                <!-- Product Grid Macro (re-usable structure) -->
+                <!-- Product 1 -->
+                <div class="product-card scroll-reveal" id="p1">
+                    <div class="product-qty-badge">0 In Cart</div>
+                    <div class="product-image">
+                        <span class="product-badge">Best Seller</span>
+                        <img src="assets/images/products/workstation.png" alt="Pro Workstation">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Workstations</span>
+                        <span class="product-id">SKU: KOM-001</span>
+                        <h3>Kombat Pro-Workstation Elite</h3>
+                        <p class="product-price">₹85,500 <span>₹95,000</span></p>
+                        <div class="product-actions" id="actions-p1">
+                            <button class="btn btn-cart-add" onclick="updateQty('p1', 1)"><i class="fas fa-shopping-cart"></i> Add</button>
+                            <div class="cart-controls">
+                                <button onclick="updateQty('p1', -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-display">0</span>
+                                <button onclick="updateQty('p1', 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <button class="btn btn-primary shop-action" data-product="Workstation Elite">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card scroll-reveal delay-1" id="p2">
+                    <div class="product-qty-badge">0 In Cart</div>
+                    <div class="product-image">
+                        <img src="assets/images/products/router.png" alt="Gigabit Router">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Networking</span>
+                        <span class="product-id">SKU: KOM-102</span>
+                        <h3>Kombat Secure-Gate Router</h3>
+                        <p class="product-price">₹12,400</p>
+                        <div class="product-actions" id="actions-p2">
+                            <button class="btn btn-cart-add" onclick="updateQty('p2', 1)"><i class="fas fa-shopping-cart"></i> Add</button>
+                            <div class="cart-controls">
+                                <button onclick="updateQty('p2', -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-display">0</span>
+                                <button onclick="updateQty('p2', 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <button class="btn btn-primary shop-action" data-product="Secure-Gate Router">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card scroll-reveal delay-2" id="p3">
+                    <div class="product-qty-badge">0 In Cart</div>
+                    <div class="product-image">
+                        <span class="product-badge">New Arrival</span>
+                        <img src="assets/images/products/printer.png" alt="Enterprise Printer">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Peripherals</span>
+                        <span class="product-id">SKU: KOM-201</span>
+                        <h3>Kombat Multi-Center 5000</h3>
+                        <p class="product-price">₹45,900</p>
+                        <div class="product-actions" id="actions-p3">
+                            <button class="btn btn-cart-add" onclick="updateQty('p3', 1)"><i class="fas fa-shopping-cart"></i> Add</button>
+                            <div class="cart-controls">
+                                <button onclick="updateQty('p3', -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-display">0</span>
+                                <button onclick="updateQty('p3', 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <button class="btn btn-primary shop-action" data-product="Multi-Center 5000">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4: Monitor -->
+                <div class="product-card scroll-reveal" id="p4">
+                    <div class="product-qty-badge">0 In Cart</div>
+                    <div class="product-image">
+                        <img src="assets/images/products/monitor.png" alt="4K Monitor">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Displays</span>
+                        <span class="product-id">SKU: KOM-304</span>
+                        <h3>Kombat Vision-Wide 4K</h3>
+                        <p class="product-price">₹32,500 <span>₹38,000</span></p>
+                        <div class="product-actions" id="actions-p4">
+                            <button class="btn btn-cart-add" onclick="updateQty('p4', 1)"><i class="fas fa-shopping-cart"></i> Add</button>
+                            <div class="cart-controls">
+                                <button onclick="updateQty('p4', -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-display">0</span>
+                                <button onclick="updateQty('p4', 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <button class="btn btn-primary shop-action" data-product="Vision-Wide 4K">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5: Scanner -->
+                <div class="product-card scroll-reveal delay-1" id="p5">
+                    <div class="product-qty-badge">0 In Cart</div>
+                    <div class="product-image">
+                        <img src="assets/images/products/scanner.png" alt="Document Scanner">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Peripherals</span>
+                        <span class="product-id">SKU: KOM-205</span>
+                        <h3>Kombat Optic-Scan 2000</h3>
+                        <p class="product-price">₹18,200</p>
+                        <div class="product-actions" id="actions-p5">
+                            <button class="btn btn-cart-add" onclick="updateQty('p5', 1)"><i class="fas fa-shopping-cart"></i> Add</button>
+                            <div class="cart-controls">
+                                <button onclick="updateQty('p5', -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-display">0</span>
+                                <button onclick="updateQty('p5', 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <button class="btn btn-primary shop-action" data-product="Optic-Scan 2000">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6: UPS -->
+                <div class="product-card scroll-reveal delay-2" id="p6">
+                    <div class="product-qty-badge">0 In Cart</div>
+                    <div class="product-image">
+                        <img src="assets/images/products/ups.png" alt="Enterprise UPS">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Infrastructure</span>
+                        <span class="product-id">SKU: KOM-506</span>
+                        <h3>Kombat Power-Shield 3K</h3>
+                        <p class="product-price">₹14,500</p>
+                        <div class="product-actions" id="actions-p6">
+                            <button class="btn btn-cart-add" onclick="updateQty('p6', 1)"><i class="fas fa-shopping-cart"></i> Add</button>
+                            <div class="cart-controls">
+                                <button onclick="updateQty('p6', -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-display">0</span>
+                                <button onclick="updateQty('p6', 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <button class="btn btn-primary shop-action" data-product="Power-Shield 3K">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 7: Keyboard -->
+                <div class="product-card scroll-reveal" id="p7">
+                    <div class="product-qty-badge">0 In Cart</div>
+                    <div class="product-image">
+                        <img src="assets/images/products/keyboard.png" alt="Mechanical Keyboard">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Input Devices</span>
+                        <span class="product-id">SKU: KOM-607</span>
+                        <h3>Kombat Mechanical-Tac</h3>
+                        <p class="product-price">₹4,800</p>
+                        <div class="product-actions" id="actions-p7">
+                            <button class="btn btn-cart-add" onclick="updateQty('p7', 1)"><i class="fas fa-shopping-cart"></i> Add</button>
+                            <div class="cart-controls">
+                                <button onclick="updateQty('p7', -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-display">0</span>
+                                <button onclick="updateQty('p7', 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <button class="btn btn-primary shop-action" data-product="Mechanical-Tac">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 8: Mouse -->
+                <div class="product-card scroll-reveal delay-1" id="p8">
+                    <div class="product-qty-badge">0 In Cart</div>
+                    <div class="product-image">
+                        <img src="assets/images/products/mouse.png" alt="Wireless Mouse">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Input Devices</span>
+                        <span class="product-id">SKU: KOM-608</span>
+                        <h3>Kombat Precision-Pro</h3>
+                        <p class="product-price">₹2,450</p>
+                        <div class="product-actions" id="actions-p8">
+                            <button class="btn btn-cart-add" onclick="updateQty('p8', 1)"><i class="fas fa-shopping-cart"></i> Add</button>
+                            <div class="cart-controls">
+                                <button onclick="updateQty('p8', -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-display">0</span>
+                                <button onclick="updateQty('p8', 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <button class="btn btn-primary shop-action" data-product="Precision-Pro">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 9: Compact Printer -->
+                <div class="product-card scroll-reveal delay-2" id="p9">
+                    <div class="product-qty-badge">0 In Cart</div>
+                    <div class="product-image">
+                        <img src="assets/images/products/compact_printer.png" alt="Laser Printer">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Peripherals</span>
+                        <span class="product-id">SKU: KOM-209</span>
+                        <h3>Kombat Laser-Pulse Mini</h3>
+                        <p class="product-price">₹9,800</p>
+                        <div class="product-actions" id="actions-p9">
+                            <button class="btn btn-cart-add" onclick="updateQty('p9', 1)"><i class="fas fa-shopping-cart"></i> Add</button>
+                            <div class="cart-controls">
+                                <button onclick="updateQty('p9', -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-display">0</span>
+                                <button onclick="updateQty('p9', 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <button class="btn btn-primary shop-action" data-product="Laser-Pulse Mini">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="custom-modal shadow-box">
+        <div class="modal-content text-center" style="max-width: 500px;">
+            <i id="modal-icon" class="fas fa-check-double text-primary" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+            <h3 id="modal-title" class="animated-gradient">Order Request Sent!</h3>
+            
+            <div id="order-summary-display" style="display:none; text-align: left; background: var(--bg-section); padding: 1.5rem; border-radius: 10px; margin: 1rem 0; font-size: 0.9rem; border: 1px solid var(--border-color);">
+                <div id="modal-order-id" style="font-weight: 800; color: var(--brand-accent); margin-bottom: 10px; font-size: 1.1rem;">Order ID: #ORD-0000-KM</div>
+                <div id="modal-item-list" style="margin-bottom: 15px;">
+                    <!-- Items JS -->
+                </div>
+                <div id="modal-total-value" style="border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 10px; font-weight: 800; font-size: 1.2rem; display: flex; justify-content: space-between;">
+                    <span>Total:</span>
+                    <span class="text-primary" id="final-total-modal">₹0</span>
+                </div>
+            </div>
+
+            <p id="modal-desc">Added to your corporate cart.</p>
+
+            <div id="screenshot-notice" style="display:none; background: rgba(255, 121, 121, 0.1); color: #ff7979; padding: 10px; border-radius: 5px; font-size: 0.85rem; margin-bottom: 1.5rem; border-left: 4px solid #ff7979; text-align: left;">
+                <i class="fas fa-camera" style="margin-right: 8px;"></i> <strong>Action Required:</strong> Please take a <b>screenshot</b> of this page for your future references.
+            </div>
+
+            <div class="modal-footer" style="display: flex; gap: 10px; justify-content: center; margin-top: 1.5rem;">
+                <button id="close-modal" class="btn btn-outline" style="min-width: 150px;">Continue</button>
+                <button id="go-to-cart" class="btn btn-primary" style="min-width: 150px;">View Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logout-modal" class="custom-modal shadow-box">
+        <div class="modal-content text-center" style="max-width: 400px;">
+            <i class="fas fa-sign-out-alt text-danger" style="font-size: 3rem; margin-bottom: 1rem; color: #ff4757;"></i>
+            <h3 class="animated-gradient">Terminate Session?</h3>
+            <p>Logging out will clear your current cart and business profile from this device.</p>
+            <div class="modal-footer" style="display: flex; gap: 10px; justify-content: center; margin-top: 1.5rem;">
+                <button id="cancel-logout" class="btn btn-outline" style="min-width: 130px;">Wait, Stay</button>
+                <button id="confirm-logout" class="btn btn-primary" style="min-width: 130px; background: #ff4757; border-color: #ff4757;">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Tools Floating Menu -->
+    <div class="fab-wrapper" id="fab-wrapper">
+        <div class="fab-menu" id="fab-menu">
+            <button class="fab-item btn-scroll-top" id="btn-top-scroll"><i class="fas fa-chevron-up"></i></button>
+            <button class="fab-item btn-cart" id="btn-cart"><span class="cart-count">0</span><i class="fas fa-shopping-cart"></i></button>
+        </div>
+        <button class="fab-main shadow-box" id="fab-main"><i class="fas fa-toolbox"></i></button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center scroll-reveal">
+            <p>&copy; 2026 Kombat IT Solutions. XII/296, Edakulam(P.O), Thrissur. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+            </div>
+            <p class="creator-credits">
+                Created with <i class="fas fa-heart pulse-heart"></i> by <a href="https://instagram.com/zoorajvs" target="_blank" class="creator-link">Sooraj</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        let cartData = JSON.parse(localStorage.getItem('kombat_cart')) || {};
+        let userData = JSON.parse(localStorage.getItem('kombat_user'));
+
+        function checkShopAccess() {
+            if(!userData) {
+                document.getElementById('shop-login-modal').classList.add('show');
+                document.getElementById('user-top-bar').style.display = 'none';
+                document.body.style.overflow = 'hidden';
+            } else {
+                showUserGreeting();
+            }
+        }
+
+        function showUserGreeting() {
+            const hour = new Date().getHours();
+            let greet = "Good Evening";
+            if(hour < 12) greet = "Good Morning";
+            else if(hour < 17) greet = "Good Afternoon";
+
+            document.getElementById('greeting-text').innerText = greet;
+            document.getElementById('display-name').innerText = userData.name;
+            document.getElementById('display-org').innerText = userData.org;
+            document.getElementById('user-top-bar').style.display = 'flex';
+        }
+
+        document.getElementById('btn-logout').onclick = () => {
+            document.getElementById('logout-modal').classList.add('show');
+        };
+
+        document.getElementById('cancel-logout').onclick = () => {
+            document.getElementById('logout-modal').classList.remove('show');
+        };
+
+        document.getElementById('confirm-logout').onclick = () => {
+            localStorage.removeItem('kombat_user');
+            localStorage.removeItem('kombat_cart');
+            window.location.reload();
+        };
+
+        const phoneInput = document.getElementById('user-phone');
+        if(phoneInput) {
+            phoneInput.addEventListener('input', function() {
+                if(!this.value.startsWith('+91 ')) {
+                    this.value = '+91 ';
+                }
+                let nums = this.value.substring(4).replace(/\D/g, '');
+                if(nums.length > 10) nums = nums.substring(0, 10);
+                this.value = '+91 ' + nums;
+            });
+        }
+
+        document.getElementById('b2b-login-form').onsubmit = (e) => {
+            e.preventDefault();
+            const phoneVal = document.getElementById('user-phone').value;
+            const digitOnly = phoneVal.substring(4).replace(/\D/g, '');
+
+            if(digitOnly.length !== 10) {
+                const modal = document.getElementById('success-modal');
+                const mIcon = document.getElementById('modal-icon');
+                if(mIcon) mIcon.className = "fas fa-exclamation-circle text-danger";
+                document.getElementById('modal-title').innerText = "Verification Error";
+                document.getElementById('modal-desc').innerText = "Please enter exactly 10 digits for your professional WhatsApp number.";
+                document.getElementById('order-summary-display').style.display = 'none';
+                document.getElementById('screenshot-notice').style.display = 'none';
+                modal.classList.add('show');
+                return;
+            }
+
+            const uData = {
+                name: document.getElementById('user-name').value,
+                org: document.getElementById('organisation-name').value || 'INDIVIDUAL PROFESSIONAL',
+                email: document.getElementById('user-email').value,
+                phone: phoneVal
+            };
+            localStorage.setItem('kombat_user', JSON.stringify(uData));
+            window.location.reload(); // REFRESHES AND SHOWS LOGGED IN STORE STATE
+        };
+
+        checkShopAccess();
+
+        function updateUI() {
+            let total = 0;
+            document.querySelectorAll('.product-card').forEach(card => {
+                const pid = card.id;
+                const qty = cartData[pid] || 0;
+                total += qty;
+
+                const qBadge = card.querySelector('.product-qty-badge');
+                const addBtn = card.querySelector('.btn-cart-add');
+                const controls = card.querySelector('.cart-controls');
+                const qtyDisp = card.querySelector('.qty-display');
+
+                if(qty > 0) {
+                    qBadge.innerText = `${qty} In Cart`;
+                    qBadge.style.display = 'block';
+                    addBtn.style.display = 'none';
+                    controls.style.display = 'grid';
+                    qtyDisp.innerText = qty;
+                } else {
+                    qBadge.style.display = 'none';
+                    addBtn.style.display = 'block';
+                    controls.style.display = 'none';
+                }
+            });
+            document.querySelectorAll('.cart-count').forEach(el => el.innerText = total);
+        }
+
+        window.updateQty = (pid, delta) => {
+            cartData[pid] = (cartData[pid] || 0) + delta;
+            if(cartData[pid] < 0) cartData[pid] = 0;
+            if(cartData[pid] === 0) delete cartData[pid];
+            localStorage.setItem('kombat_cart', JSON.stringify(cartData));
+            updateUI();
+            
+            if(delta > 0) {
+                const modal = document.getElementById('success-modal');
+                document.getElementById('modal-title').innerText = "Cart Updated";
+                document.getElementById('modal-desc').innerText = "Item quantity successfully increased.";
+                modal.classList.add('show');
+            }
+        };
+
+        const goToCart = () => window.location.href = 'cart.html';
+        document.getElementById('header-cart').onclick = goToCart;
+        document.getElementById('btn-cart').onclick = goToCart;
+        document.getElementById('go-to-cart').onclick = goToCart;
+        document.getElementById('close-modal').onclick = () => document.getElementById('success-modal').classList.remove('show');
+
+        document.querySelectorAll('.shop-action').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productName = this.getAttribute('data-product');
+                const card = this.closest('.product-card');
+                const sku = card.querySelector('.product-id').innerText;
+                const price = card.querySelector('.product-price').innerText.split(' ')[0];
+
+                // Generate Order ID
+                const orderId = 'ORD-' + Math.floor(1000 + Math.random() * 9000) + '-KM';
+
+                let msg = `*Kombat IT Solutions - Single Item Purchase [#${orderId}]*\n`;
+                msg += `------------------------------------------------\n`;
+                msg += `• *Customer:* ${userData ? userData.name : 'Unknown'}\n`;
+                msg += `• *Company:* ${userData ? userData.org : 'N/A'}\n`;
+                msg += `• *Contact:* ${userData ? userData.phone : 'N/A'}\n`;
+                msg += `------------------------------------------------\n`;
+                msg += `• *Product:* ${productName}\n`;
+                msg += `• *SKU:* ${sku}\n`;
+                msg += `• *Unit Price:* ${price}\n\n`;
+                msg += `_Please process this individual order immediately._`;
+
+                const encoded = encodeURIComponent(msg);
+                window.open(`https://wa.me/917025064441?text=${encoded}`, '_blank');
+
+                const modal = document.getElementById('success-modal');
+                
+                // Show summary for Buy Now
+                document.getElementById('modal-order-id').innerText = `Order ID: #${orderId}`;
+                document.getElementById('modal-item-list').innerHTML = `• ${productName}`;
+                document.getElementById('final-total-modal').innerText = price;
+                document.getElementById('order-summary-display').style.display = 'block';
+                document.getElementById('screenshot-notice').style.display = 'block';
+
+                document.getElementById('modal-title').innerText = "Order Request Sent!";
+                document.getElementById('modal-desc').innerText = `Individual purchase initiated for ${productName}.`;
+                
+                // CLEAR CART
+                cartData = {};
+                localStorage.setItem('kombat_cart', JSON.stringify(cartData));
+                updateUI();
+                
+                modal.classList.add('show');
+            });
+        });
+
+        // Reset Order ID display when just adding to cart
+        window.addEventListener('click', (e) => {
+            if(e.target.classList.contains('btn-cart-add') || e.target.closest('.qty-btn')) {
+                const idDisplay = document.getElementById('order-id-display');
+                if(idDisplay) idDisplay.style.display = 'none';
+            }
+        });
+
+        updateUI();
+    </script>
+</body>
+</html>
