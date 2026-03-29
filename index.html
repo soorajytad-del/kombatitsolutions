@@ -318,6 +318,24 @@
         </button>
     </div>
 
+    <!-- Google Rating Prompt Modal -->
+    <div id="google-rating-modal" class="custom-modal shadow-box">
+        <div class="modal-content text-center" style="max-width: 450px;">
+            <i class="fab fa-google text-primary" style="font-size: 3rem; margin-bottom: 1.5rem;"></i>
+            <h4 class="animated-gradient" style="margin-bottom: 0.5rem;">Your Feedback Matters</h4>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">If you like our services, please take a moment to rate us on Google. It helps us grow and serve you better!</p>
+            
+            <div class="stars-display" style="color: #ffb703; font-size: 1.8rem; margin: 1.5rem 0; filter: drop-shadow(0 0 5px rgba(255, 183, 3, 0.3));">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <a href="https://share.google/fotZWDMyJhGfNzO3E" target="_blank" class="btn btn-primary" style="padding: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center;" onclick="document.getElementById('google-rating-modal').classList.remove('show');"><i class="fas fa-external-link-alt" style="margin-right: 8px;"></i> Rate on Google</a>
+                <button onclick="document.getElementById('google-rating-modal').classList.remove('show');" class="btn btn-outline" style="padding: 12px;">Maybe Later</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Contact Captcha Verification Modal -->
     <div id="contact-captcha-modal" class="custom-modal shadow-box">
         <div class="modal-content text-center" style="max-width: 450px;">

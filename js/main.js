@@ -17,6 +17,23 @@ window.addEventListener('load', () => {
             preloader.style.display = 'none';
         }
     }
+
+    // 0.1 Google Rating Modal Trigger Logic (20s delay after clicking Services)
+    const servicesLinks = document.querySelectorAll('a[href*="#services"]');
+    servicesLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (!sessionStorage.getItem('kombatRatingPrompted')) {
+                setTimeout(() => {
+                    const ratingModal = document.getElementById('google-rating-modal');
+                    if (ratingModal) {
+                        ratingModal.classList.add('show');
+                        if (typeof playNavBeep === 'function') playNavBeep();
+                        sessionStorage.setItem('kombatRatingPrompted', 'true');
+                    }
+                }, 20000); // 20 Seconds Elite Delay
+            }
+        });
+    });
 });
 
 // 0.5 Dark Theme Configuration
