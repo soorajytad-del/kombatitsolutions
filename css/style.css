@@ -999,6 +999,23 @@ img {
     gap: 1.5rem;
     margin-top: 3rem;
 }
+
+.last-updated {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--bg-card);
+    padding: 0.8rem 1.5rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-body);
+    border: 1px solid var(--border-color);
+}
+
+.last-updated i {
+    color: var(--brand-accent);
+}
+
 .job-card {
     background: var(--bg-card);
     padding: 1.5rem;
@@ -1436,6 +1453,9 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
+    .container { padding: 0 1.25rem; }
+    .section-padding { padding: 3rem 0; }
+    
     .nav-links {
         position: absolute;
         top: 100%;
@@ -1447,10 +1467,25 @@ textarea.form-control {
         padding: 1rem 0;
         box-shadow: 0 10px 15px rgba(0,0,0,0.1);
         transition: var(--transition);
+        z-index: 100;
     }
     .nav-links.active { left: 0; }
     .hamburger { display: block; }
     .hero-text-box h1 { font-size: 2.2rem; }
     .cta-buttons { flex-direction: column; }
     .trust-item { width: 100%; justify-content: center; }
+
+    /* Contact & Services mobile fixes */
+    .contact-info, .contact-actions { padding: 2rem 1.5rem; }
+    .services-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .actions-wrapper h3 { font-size: 1.5rem; }
+    
+    .contact-grid { overflow: visible; } /* Allow shadows but prevent clipping */
+}
+
+@media (max-width: 480px) {
+    .hero-text-box h1 { font-size: 1.9rem; }
+    .section-title { font-size: 1.8rem; }
+    .footer { padding: 2rem 0; }
+    .last-updated { width: 100%; justify-content: center; }
 }

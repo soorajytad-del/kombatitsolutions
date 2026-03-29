@@ -347,4 +347,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1000);
         });
     }
+
+    // 8. Automatically update the "Last Updated" date on the careers page
+    const lastUpdatedEl = document.getElementById('last-updated-date');
+    if (lastUpdatedEl) {
+        // Fetch the last modified date of the current document
+        const lastMod = new Date(document.lastModified);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        lastUpdatedEl.textContent = lastMod.toLocaleDateString('en-IN', options);
+    }
 });
