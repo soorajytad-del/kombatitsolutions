@@ -323,29 +323,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (contactForm) {
+        let contactCaptchaCode = '';
+        const contactCaptchaModal = document.getElementById('contact-captcha-modal');
+        const contactCaptchaDisplay = document.getElementById('contact-captcha-display');
+        const contactCaptchaInput = document.getElementById('contact-captcha-input');
+        const refreshBtn = document.getElementById('refresh-contact-captcha');
+        const verifyBtn = document.getElementById('verify-contact-captcha');
+        const cancelBtn = document.getElementById('cancel-contact-captcha');
+
+        const generateContactCaptcha = () => {
+            const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+            let code = '';
+            for(let i=0; i<4; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+            contactCaptchaCode = code;
+            if(contactCaptchaDisplay) contactCaptchaDisplay.innerText = code;
+            if(contactCaptchaInput) contactCaptchaInput.value = '';
+        };
+
+        if(refreshBtn) refreshBtn.addEventListener('click', generateContactCaptcha);
+        if(cancelBtn) cancelBtn.addEventListener('click', () => {
+            contactCaptchaModal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        });
+
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            generateContactCaptcha();
+            if(contactCaptchaModal) {
+                contactCaptchaModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
             if (typeof playNavBeep === 'function') playNavBeep();
-            
-            // Simulating API call delay for premium feel
-            const btnSubmit = contactForm.querySelector('.btn-submit');
-            const originalText = btnSubmit.innerHTML;
-            btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            btnSubmit.disabled = true;
-
-            setTimeout(() => {
-                btnSubmit.innerHTML = '<i class="fas fa-check"></i> Request Sent';
-                setTimeout(() => {
-                    if (successModal) {
-                        successModal.classList.add('show');
-                        if (typeof playNavBeep === 'function') playNavBeep(); // Beep on modal show
-                    }
-                    contactForm.reset();
-                    btnSubmit.innerHTML = originalText;
-                    btnSubmit.disabled = false;
-                }, 500);
-            }, 1000);
         });
+
+        if(verifyBtn) {
+            verifyBtn.addEventListener('click', () => {
+                const inputCode = contactCaptchaInput.value.toUpperCase();
+                if(inputCode !== contactCaptchaCode) {
+                    if(typeof playNavBeep === 'function') playNavBeep();
+                    contactCaptchaInput.style.borderColor = '#ff4757';
+                    contactCaptchaInput.style.boxShadow = '0 0 10px rgba(255, 71, 87, 0.2)';
+                    setTimeout(() => {
+                        contactCaptchaInput.style.borderColor = 'var(--border-color)';
+                        contactCaptchaInput.style.boxShadow = 'none';
+                    }, 1000);
+                    generateContactCaptcha();
+                    return;
+                }
+
+                contactCaptchaModal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+
+                const btnSubmit = contactForm.querySelector('.btn-submit');
+                const originalText = btnSubmit.innerHTML;
+                btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Request...';
+                btnSubmit.disabled = true;
+
+                setTimeout(() => {
+                    btnSubmit.innerHTML = '<i class="fas fa-check"></i> Request Verified';
+                    setTimeout(() => {
+                        if (successModal) {
+                            document.getElementById('modal-title').innerText = "Request Received!";
+                            document.getElementById('modal-desc').innerText = "Your enterprise service request has been verified and logged in our secure system.";
+                            successModal.classList.add('show');
+                            if (typeof playNavBeep === 'function') playNavBeep();
+                        }
+                        contactForm.reset();
+                        btnSubmit.innerHTML = originalText;
+                        btnSubmit.disabled = false;
+                    }, 500);
+                }, 1000);
+            });
+        }
     }
 
     // 8. Automatically update the "Last Updated" date on the careers page

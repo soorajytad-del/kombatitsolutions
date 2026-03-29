@@ -345,7 +345,7 @@
         .user-top-bar {
             position: sticky;
             top: 92px; /* Professional Gap from header */
-            z-index: 1100; /* Elevated Z-Index for absolute visibility */
+            z-index: 990; /* Tuck below main header (1000) for clean mobile menu transitions */
             background: rgba(var(--bg-card-rgb), 0.8) !important;
             backdrop-filter: blur(12px);
             border: 1px solid var(--brand-accent);
@@ -376,7 +376,7 @@
 
         /* Adjust top offset when header shrinks on scroll */
         .header.scrolled + .page-header + .section-padding .user-top-bar {
-            top: 78px;
+            top: 90px;
         }
 
         #btn-logout:hover {
@@ -388,7 +388,7 @@
         /* Responsive Dashboard Adjustments */
         @media (max-width: 768px) {
             .user-top-bar {
-                top: 85px;
+                top: 100px; /* Safe distance below header on mobile */
                 padding: 15px 20px;
                 border-radius: 20px;
                 max-width: 92%;
@@ -441,7 +441,7 @@
                 .user-top-bar {
                     max-width: 95%;
                     padding: 12px 15px;
-                    top: 82px; /* Pull up slightly for smaller vertical content */
+                    top: 105px; /* Deep drop to clear mobile nav dynamic shifts */
                 }
                 .user-top-bar .container {
                     gap: 8px;
@@ -523,21 +523,24 @@
                     </div>
                 </div>
 
-                <!-- Attractive Custom Checkbox -->
-                <label class="agreement-container">
-                    <div class="custom-checkbox-wrapper">
-                        <input type="checkbox" id="privacy-agreement" class="custom-checkbox-target" required>
-                        <div class="custom-checkbox-box"></div>
+                <!-- Kombat Secure-Gate Captcha -->
+                <div class="captcha-container" style="background: rgba(var(--brand-accent-rgb), 0.05); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); margin: 1rem 0;">
+                    <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Verification Challenge</label>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div id="captcha-display" style="background: var(--bg-card); color: var(--brand-accent); font-family: 'Courier New', Courier, monospace; font-weight: 900; font-size: 1.4rem; padding: 10px 20px; border-radius: 8px; border: 1px solid var(--brand-accent); user-select: none; letter-spacing: 4px; text-decoration: line-through; font-style: italic; background-image: radial-gradient(var(--brand-accent) 0.5px, transparent 0.5px); background-size: 4px 4px;">1234</div>
+                        <button type="button" onclick="generateCaptcha()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.1rem;" title="Refresh Captcha"><i class="fas fa-sync-alt"></i></button>
+                        <input type="text" id="captcha-input" placeholder="Type Code" required style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-section); color: var(--text-heading); font-size: 1rem; text-align: center; letter-spacing: 2px;">
                     </div>
-                    <span class="agreement-label">
-                        I acknowledge that I have read and agree to the <a href="privacy-policy.html" target="_blank" style="color: var(--brand-accent); text-decoration: underline; font-weight: 700;">Kombat IT Solutions Privacy Policy</a>. I understand my data is processed solely for B2B verification.
-                    </span>
-                </label>
+                </div>
 
                 <div style="display: grid; grid-template-columns: 2fr 1.2fr; gap: 10px; margin-top: 1.5rem;">
                     <button type="submit" class="btn btn-primary" style="padding: 1rem; border-radius: 8px; font-weight: 700; font-size: 1rem;"><i class="fas fa-unlock" style="margin-right: 8px;"></i> Login to Store</button>
                     <a href="index.html" class="btn btn-outline" style="padding: 1rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.9rem;"><i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Return Home</a>
                 </div>
+
+                <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 15px; line-height: 1.4;">
+                    By clicking Login, you agree to the <a href="privacy-policy.html" target="_blank" style="color: var(--brand-accent); text-decoration: underline;">Kombat IT Solutions Privacy Policy</a> and terms of B2B procurement.
+                </p>
             </form>
         </div>
     </div>
@@ -904,12 +907,22 @@
         function checkShopAccess() {
             if(!userData) {
                 document.getElementById('shop-login-modal').classList.add('show');
-                document.getElementById('user-top-bar').style.display = 'none';
                 document.body.style.overflow = 'hidden';
+                generateCaptcha();
             } else {
                 showUserGreeting();
             }
         }
+
+        let currentCaptcha = "1234";
+        window.generateCaptcha = () => {
+            const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ'; // Exclude ambiguous chars like 1, 0, I, O
+            let code = '';
+            for(let i=0; i<4; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+            currentCaptcha = code;
+            const display = document.getElementById('captcha-display');
+            if(display) display.innerText = code;
+        };
 
         function showUserGreeting() {
             const hour = new Date().getHours();
@@ -998,6 +1011,20 @@
                 document.getElementById('order-summary-display').style.display = 'none';
                 document.getElementById('screenshot-notice').style.display = 'none';
                 modal.classList.add('show');
+                return;
+            }
+
+            const cInput = document.getElementById('captcha-input').value.toUpperCase();
+            if(cInput !== currentCaptcha) {
+                const modal = document.getElementById('success-modal');
+                const mIcon = document.getElementById('modal-icon');
+                if(mIcon) mIcon.className = "fas fa-shield-virus text-danger";
+                document.getElementById('modal-title').innerText = "Security Failed";
+                document.getElementById('modal-desc').innerText = "The verification challenge code is incorrect. Please try again.";
+                document.getElementById('order-summary-display').style.display = 'none';
+                document.getElementById('screenshot-notice').style.display = 'none';
+                modal.classList.add('show');
+                generateCaptcha();
                 return;
             }
 
