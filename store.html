@@ -345,13 +345,13 @@
         .user-top-bar {
             position: sticky;
             top: 92px; /* Professional Gap from header */
-            z-index: 999;
+            z-index: 1100; /* Elevated Z-Index for absolute visibility */
             background: rgba(var(--bg-card-rgb), 0.8) !important;
             backdrop-filter: blur(12px);
             border: 1px solid var(--brand-accent);
             border-radius: 50px; /* Modern Pill shape */
             padding: 10px 30px;
-            margin-bottom: 3.5rem;
+            margin-bottom: 3.5rem; /* Increased Space */
             box-shadow: 0 10px 30px rgba(0, 168, 255, 0.15);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             max-width: fit-content;
@@ -392,8 +392,9 @@
                 padding: 15px 20px;
                 border-radius: 20px;
                 max-width: 92%;
-                margin-bottom: 2rem;
-                overflow: hidden;
+                margin-bottom: 3rem; /* Increased Mobile Space */
+                overflow: visible !important; /* Critical to prevent pulse clipping */
+                display: flex;
             }
 
             .user-top-bar.minimized {
@@ -401,10 +402,11 @@
                 height: 60px;
                 border-radius: 50%;
                 padding: 0;
-                display: flex;
                 justify-content: center;
                 align-items: center;
                 cursor: pointer;
+                overflow: visible !important;
+                animation: bubbleBeats 2s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
             }
 
             .user-top-bar.minimized .container {
@@ -427,16 +429,28 @@
                 animation: bubblePulse 2.5s infinite;
             }
 
-            .user-top-bar.minimized {
-                animation: bubbleBeats 2s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            }
-
             .user-top-bar .container {
                 flex-direction: column;
                 gap: 12px;
                 white-space: normal;
                 text-align: center;
             }
+
+            /* Ultra-Compact Phone Adjustment (e.g., 6" phones, <= 380px) */
+            @media (max-width: 380px) {
+                .user-top-bar {
+                    max-width: 95%;
+                    padding: 12px 15px;
+                    top: 82px; /* Pull up slightly for smaller vertical content */
+                }
+                .user-top-bar .container {
+                    gap: 8px;
+                }
+                #user-greeting {
+                    font-size: 0.85rem;
+                }
+            }
+
             #user-greeting {
                 flex-direction: column;
                 gap: 5px;
