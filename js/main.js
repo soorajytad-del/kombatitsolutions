@@ -294,4 +294,29 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    // 7. Contact Form Submit Logic
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (typeof playNavBeep === 'function') playNavBeep();
+            
+            // Simulating API call delay for premium feel
+            const btnSubmit = contactForm.querySelector('.btn-submit');
+            const originalText = btnSubmit.innerHTML;
+            btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btnSubmit.disabled = true;
+
+            setTimeout(() => {
+                btnSubmit.innerHTML = '<i class="fas fa-check"></i> Request Sent';
+                setTimeout(() => {
+                    alert('Thank you for reaching out to Kombat IT Solutions. Our enterprise team will contact you shortly.');
+                    contactForm.reset();
+                    btnSubmit.innerHTML = originalText;
+                    btnSubmit.disabled = false;
+                }, 500);
+            }, 1000);
+        });
+    }
 });

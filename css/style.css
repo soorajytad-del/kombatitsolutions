@@ -1259,6 +1259,84 @@ img {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* --- CONTACT LINKS --- */
+.contact-link {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.contact-link:hover {
+    color: var(--brand-accent);
+    text-decoration: underline;
+}
+
+/* --- CONTACT FORM --- */
+.contact-form {
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--brand-accent);
+    box-shadow: 0 0 0 3px rgba(255, 60, 0, 0.1); /* Subtle brand accent glow */
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.btn-submit {
+    width: 100%;
+    margin-top: 0.5rem;
+    font-weight: 600;
+}
+
+.divider {
+    position: relative;
+    text-align: center;
+    margin: 2.5rem 0;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--border-color);
+    z-index: 1;
+}
+
+.divider span {
+    position: relative;
+    z-index: 2;
+    background-color: var(--bg-surface);
+    padding: 0 1rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 991px) {
     .hero-text-box h1 { font-size: 2.8rem; }
