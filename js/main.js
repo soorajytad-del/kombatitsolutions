@@ -203,6 +203,22 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
+    // Reset Hero Animations on Scroll (to repeat when re-entering)
+    const heroTextBox = document.querySelector('.hero-text-box');
+    if (heroTextBox) {
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('hero-animate');
+                } else {
+                    // Remove to reset animation for next entry
+                    entry.target.classList.remove('hero-animate');
+                }
+            });
+        }, { threshold: 0.1 });
+        heroObserver.observe(heroTextBox);
+    }
+
     // 4. Active Link Switching on Scroll
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-links li a');
