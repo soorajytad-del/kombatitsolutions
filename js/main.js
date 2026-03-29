@@ -406,30 +406,45 @@ document.addEventListener('DOMContentLoaded', () => {
         lastUpdatedEl.textContent = lastMod.toLocaleDateString('en-IN', options);
     }
 
-    // 9. Google Rating Modal Trigger (20 seconds after entry)
+    // 9. Google Rating Modal Trigger (40 seconds after entry)
     const ratingModal = document.getElementById('rating-modal');
     const closeRatingBtn = document.getElementById('close-rating-modal');
+    const ratingCountdown = document.getElementById('rating-countdown');
+    const ratingTimerWrapper = document.getElementById('rating-countdown-wrapper');
+
+    const triggerRatingCountdown = () => {
+        let timeLeft = 7;
+        const interval = setInterval(() => {
+            timeLeft--;
+            if(ratingCountdown) ratingCountdown.innerText = timeLeft;
+            if(timeLeft <= 0) {
+                clearInterval(interval);
+                if(ratingTimerWrapper) ratingTimerWrapper.style.display = 'none';
+                if(closeRatingBtn) closeRatingBtn.style.display = 'block';
+            }
+        }, 1000);
+    };
 
     if (ratingModal && !sessionStorage.getItem('kombatRatingShown')) {
         setTimeout(() => {
-            // Only show if no other modal is currently active to avoid overlap
             const activeModal = document.querySelector('.custom-modal.show');
             if(!activeModal) {
                 ratingModal.classList.add('show');
                 sessionStorage.setItem('kombatRatingShown', 'true');
+                triggerRatingCountdown();
                 if (typeof playNavBeep === 'function') playNavBeep();
             } else {
-                // If a modal is active, check again every 30 seconds
                 const checkLater = setInterval(() => {
                     if(!document.querySelector('.custom-modal.show')) {
                         ratingModal.classList.add('show');
                         sessionStorage.setItem('kombatRatingShown', 'true');
+                        triggerRatingCountdown();
                         if (typeof playNavBeep === 'function') playNavBeep();
                         clearInterval(checkLater);
                     }
                 }, 30000);
             }
-        }, 20000);
+        }, 40000); // 40s delay
 
         if(closeRatingBtn) {
             closeRatingBtn.addEventListener('click', () => {
