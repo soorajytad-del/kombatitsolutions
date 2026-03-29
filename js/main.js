@@ -17,23 +17,6 @@ window.addEventListener('load', () => {
             preloader.style.display = 'none';
         }
     }
-
-    // 0.1 Google Rating Modal Trigger Logic (20s delay after clicking Services)
-    const servicesLinks = document.querySelectorAll('a[href*="#services"]');
-    servicesLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (!sessionStorage.getItem('kombatRatingPrompted')) {
-                setTimeout(() => {
-                    const ratingModal = document.getElementById('google-rating-modal');
-                    if (ratingModal) {
-                        ratingModal.classList.add('show');
-                        if (typeof playNavBeep === 'function') playNavBeep();
-                        sessionStorage.setItem('kombatRatingPrompted', 'true');
-                    }
-                }, 20000); // 20 Seconds Elite Delay
-            }
-        });
-    });
 });
 
 // 0.5 Dark Theme Configuration
@@ -421,5 +404,37 @@ document.addEventListener('DOMContentLoaded', () => {
         const lastMod = new Date(document.lastModified);
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         lastUpdatedEl.textContent = lastMod.toLocaleDateString('en-IN', options);
+    }
+
+    // 9. Google Rating Modal Trigger (20 seconds after entry)
+    const ratingModal = document.getElementById('rating-modal');
+    const closeRatingBtn = document.getElementById('close-rating-modal');
+
+    if (ratingModal && !sessionStorage.getItem('kombatRatingShown')) {
+        setTimeout(() => {
+            // Only show if no other modal is currently active to avoid overlap
+            const activeModal = document.querySelector('.custom-modal.show');
+            if(!activeModal) {
+                ratingModal.classList.add('show');
+                sessionStorage.setItem('kombatRatingShown', 'true');
+                if (typeof playNavBeep === 'function') playNavBeep();
+            } else {
+                // If a modal is active, check again every 30 seconds
+                const checkLater = setInterval(() => {
+                    if(!document.querySelector('.custom-modal.show')) {
+                        ratingModal.classList.add('show');
+                        sessionStorage.setItem('kombatRatingShown', 'true');
+                        if (typeof playNavBeep === 'function') playNavBeep();
+                        clearInterval(checkLater);
+                    }
+                }, 30000);
+            }
+        }, 20000);
+
+        if(closeRatingBtn) {
+            closeRatingBtn.addEventListener('click', () => {
+                ratingModal.classList.remove('show');
+            });
+        }
     }
 });
