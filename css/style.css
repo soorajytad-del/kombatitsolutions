@@ -163,12 +163,18 @@ img {
 }
 .parallax-services { background-image: url('../assets/images/services_bg.png'); }
 .parallax-contact { background-image: url('../assets/images/contact_bg.png'); }
-.parallax-careers { background-image: url('../assets/images/careers_bg.png'); }
+.parallax-careers { background-image: url('../assets/images/ultimate_hero.png'); animation: kenburns 20s linear infinite; }
 .parallax-about { background-image: url('../assets/images/about_bg.png'); }
 .parallax-clients { background-image: url('../assets/images/clients_bg.png'); }
 .parallax-culture { background-image: url('../assets/images/culture_bg.png'); }
 .parallax-template { background-image: url('../assets/images/template_bg.png'); }
 .parallax-privacy { background-image: url('../assets/images/privacy_policy_bg.png'); }
+
+@keyframes kenburns {
+    0% { background-size: 100% 100%; }
+    50% { background-size: 120% 120%; }
+    100% { background-size: 100% 100%; }
+}
 
 /* Specific light overlay for Privacy page for extra visibility */
 .parallax-privacy::before {
@@ -442,6 +448,15 @@ img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    animation: kenBurns 25s ease-in-out infinite;
+    filter: brightness(0.9);
+    transition: filter 0.5s ease;
+}
+
+@keyframes kenBurns {
+    0% { transform: scale(1) translate(0, 0); }
+    50% { transform: scale(1.15) translate(-2%, -1%); }
+    100% { transform: scale(1) translate(0, 0); }
 }
 
 .hero-bg .overlay {

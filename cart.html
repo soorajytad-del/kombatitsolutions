@@ -141,6 +141,224 @@
             color: var(--brand-accent);
         }
 
+        #user-name, #organisation-name {
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        /* Highly Attractive Custom Checkbox for Privacy */
+        .agreement-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin: 2rem 0;
+            cursor: pointer;
+            user-select: none;
+            padding: 12px;
+            background: rgba(0, 168, 255, 0.03);
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .agreement-container:hover {
+            background: rgba(0, 168, 255, 0.08);
+        }
+
+        .custom-checkbox-wrapper {
+            position: relative;
+            min-width: 22px;
+            height: 22px;
+        }
+
+        .custom-checkbox-target {
+            opacity: 0;
+            position: absolute;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .custom-checkbox-box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 22px;
+            width: 22px;
+            background: var(--bg-section);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .agreement-container:hover .custom-checkbox-box {
+            border-color: var(--brand-accent);
+        }
+
+        .custom-checkbox-target:checked ~ .custom-checkbox-box {
+            background: var(--brand-accent);
+            border-color: var(--brand-accent);
+            box-shadow: 0 0 15px rgba(0, 168, 255, 0.4);
+        }
+
+        .custom-checkbox-box::after {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: white;
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        .custom-checkbox-target:checked ~ .custom-checkbox-box::after {
+            display: block;
+        }
+
+        .agreement-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        /* User Dashboard Pill - Premium Floating Design */
+        .user-top-bar {
+            position: sticky;
+            top: 92px; /* Professional Gap from header */
+            z-index: 999;
+            background: rgba(var(--bg-card-rgb), 0.8) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--brand-accent);
+            border-radius: 50px; /* Modern Pill shape */
+            padding: 10px 30px;
+            margin-bottom: 3.5rem; /* Increased Space */
+            box-shadow: 0 10px 30px rgba(0, 168, 255, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .user-top-bar:hover {
+            transform: translateY(2px);
+            box-shadow: 0 15px 40px rgba(0, 168, 255, 0.25);
+            border-color: #ffffff;
+        }
+
+        .user-top-bar .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            padding: 0;
+            white-space: nowrap;
+        }
+
+        /* Responsive Dashboard Adjustments */
+        @media (max-width: 768px) {
+            .user-top-bar {
+                top: 85px;
+                padding: 15px 20px;
+                border-radius: 20px;
+                max-width: 92%;
+                margin-bottom: 3rem; /* Increased Mobile Space */
+                overflow: hidden;
+                display: flex;
+            }
+
+            .user-top-bar.minimized {
+                max-width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                padding: 0;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .user-top-bar.minimized .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+            }
+
+            .user-top-bar.minimized #user-greeting,
+            .user-top-bar.minimized #btn-logout {
+                display: none !important;
+            }
+            .user-top-bar.minimized .mobile-bubble-icon {
+                display: block !important;
+                font-size: 1.5rem;
+                color: var(--brand-accent);
+                animation: bubblePulse 2.5s infinite;
+            }
+
+            .user-top-bar.minimized {
+                animation: bubbleBeats 2s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+
+            .user-top-bar .container {
+                flex-direction: column;
+                gap: 12px;
+                white-space: normal;
+                text-align: center;
+            }
+        }
+
+        .cart-container {
+            margin-top: 1rem; /* Base margin */
+        }
+
+        #cart-content-wrapper {
+            margin-top: 3rem; /* Extra space from dashboard */
+        }
+
+        .toggle-dashboard {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            display: none !important; /* Force hide on Desktop */
+        }
+
+        @media (max-width: 768px) {
+            .toggle-dashboard {
+                display: block !important;
+            }
+            .user-top-bar.minimized {
+                cursor: pointer;
+            }
+        }
+
+        .user-top-bar {
+            cursor: default; /* Not clickable on Desktop */
+        }
+
+        /* Heartbeat Animation for Dashboard Bubble */
+        @keyframes bubblePulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 8px var(--brand-accent)); }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        @keyframes bubbleBeats {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(0, 168, 255, 0.2); }
+            5% { transform: scale(1.08); box-shadow: 0 10px 25px rgba(0, 168, 255, 0.4); }
+            10% { transform: scale(1); box-shadow: 0 4px 15px rgba(0, 168, 255, 0.2); }
+            15% { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0, 168, 255, 0.3); }
+            20% { transform: scale(1); box-shadow: 0 4px 15px rgba(0, 168, 255, 0.2); }
+            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(0, 168, 255, 0.2); }
+        }
+
         .checkout-btn {
             width: 100%;
             margin-top: 2rem;
@@ -201,25 +419,6 @@
             outline: none;
         }
 
-        /* User Top Bar */
-        .user-top-bar {
-            position: relative;
-            z-index: 1001;
-            background: var(--bg-section) !important;
-            border-bottom: 1px solid var(--border-color);
-            min-height: 40px;
-            display: flex;
-            align-items: center;
-        }
-
-        .user-top-bar .container {
-            width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            padding: 5px 20px;
-        }
-
         #btn-logout:hover {
             color: #ff4757 !important;
             border-color: #ff4757 !important;
@@ -257,10 +456,16 @@
                     </div>
                 </div>
 
-                <div style="background: rgba(0, 168, 255, 0.05); border-left: 4px solid var(--brand-accent); padding: 12px; border-radius: 5px; margin: 1.5rem 0; text-align: left; font-size: 0.8rem; color: var(--text-muted);">
-                    <i class="fas fa-info-circle text-primary" style="margin-right: 8px;"></i>
-                    <strong>Privacy Disclaimer:</strong> We value your security. Your personal data is neither stored on our servers nor shared with third parties. Required strictly for business verification and order synchronization purposes.
-                </div>
+                <!-- Attractive Custom Checkbox -->
+                <label class="agreement-container">
+                    <div class="custom-checkbox-wrapper">
+                        <input type="checkbox" id="privacy-agreement" class="custom-checkbox-target" required>
+                        <div class="custom-checkbox-box"></div>
+                    </div>
+                    <span class="agreement-label">
+                        I acknowledge that I have read and agree to the <a href="privacy-policy.html" target="_blank" style="color: var(--brand-accent); text-decoration: underline; font-weight: 700;">Kombat IT Solutions Privacy Policy</a>. I understand my data is processed solely for B2B verification.
+                    </span>
+                </label>
 
                 <div style="display: grid; grid-template-columns: 2fr 1.2fr; gap: 10px; margin-top: 1.5rem;">
                     <button type="submit" class="btn btn-primary" style="padding: 1rem; border-radius: 8px; font-weight: 700; font-size: 1rem;"><i class="fas fa-unlock" style="margin-right: 8px;"></i> Login to Store</button>
@@ -288,12 +493,16 @@
                 <li><a href="index.html#home">Home</a></li>
                 <li><a href="index.html#about">About Us</a></li>
                 <li><a href="index.html#services">Services</a></li>
-                <li><a href="store.html">Store</a></li>
+                <li><a href="store.html" class="active">Store</a></li>
                 <li><a href="index.html#clients">Our Clients</a></li>
                 <li><a href="careers.html">Careers</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
             <div class="nav-actions">
+                <div class="nav-cart" id="header-cart" title="View Shopping Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
                 <div class="theme-toggle" id="theme-toggle"><i class="fas fa-moon dark-icon"></i><i class="fas fa-sun light-icon" style="display:none;"></i></div>
                 <div class="hamburger"><i class="fas fa-bars"></i></div>
             </div>
@@ -308,20 +517,23 @@
         </div>
     </div>
 
-    <!-- Main Section -->
+    <!-- Cart Section -->
     <section class="section-padding bg-main">
         <div class="container">
-            <!-- User Greeting Dashboard Bar -->
-            <div id="user-top-bar" class="user-top-bar scroll-reveal" style="display:none; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px 25px; margin-bottom: 2rem; box-shadow: var(--shadow-box);">
-                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                    <div id="user-greeting" style="font-size: 1.1rem;">
-                        <i class="fas fa-user-circle text-primary" style="margin-right: 10px;"></i>
-                        <span id="greeting-text">Good Morning</span>, 
-                        <strong id="display-name" class="text-primary" style="text-transform: uppercase;">John</strong> 
-                        <span style="color: var(--text-muted); margin: 0 15px;">|</span> 
-                        <span id="display-org" style="font-weight: 600; font-size: 0.95rem; color: var(--text-muted); text-transform: uppercase;"><i class="fas fa-building" style="margin-right: 5px;"></i>Kombat Corp</span>
+            <!-- User Greeting Dashboard Bar (Sticky & Minimizable) -->
+            <div id="user-top-bar" class="user-top-bar" style="display:none;" onclick="toggleDashboardBubble(event)">
+                <div class="toggle-dashboard" id="dash-toggle-btn" onclick="toggleDashboardManual(event)" style="display: none;">
+                    <i class="fas fa-minus"></i>
+                </div>
+                <div class="container">
+                    <i class="fas fa-user-shield mobile-bubble-icon" style="display:none;"></i>
+                    <div id="user-greeting" style="font-size: 1rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-user-shield text-primary"></i>
+                        <span><span id="greeting-text">Good Morning</span>, <strong id="display-name" class="text-primary" style="text-transform: uppercase;">User</strong></span>
+                        <span style="color: var(--border-color); margin: 0 10px;">|</span>
+                        <span id="display-org" style="font-weight: 600; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase;"><i class="fas fa-building" style="margin-right: 5px;"></i>Kombat Partner</span>
                     </div>
-                    <button id="btn-logout" class="btn btn-outline" style="padding: 5px 20px; font-size: 0.85rem;"><i class="fas fa-sign-out-alt"></i> Logout from Shop</button>
+                    <button id="btn-logout" class="btn btn-outline" style="padding: 4px 15px; font-size: 0.8rem;"><i class="fas fa-power-off"></i> Logout</button>
                 </div>
             </div>
 
@@ -464,7 +676,61 @@
             document.getElementById('display-name').innerText = userData.name;
             document.getElementById('display-org').innerText = userData.org;
             document.getElementById('user-top-bar').style.display = 'flex';
+
+            // Intelligent Sticky Auto-Toggle (Ported from Store)
+            window.addEventListener('scroll', () => {
+                const bar = document.getElementById('user-top-bar');
+                if (window.innerWidth <= 768) {
+                    if (window.scrollY < 50 && bar.classList.contains('minimized')) {
+                        bar.classList.remove('minimized');
+                        const icon = document.querySelector('#dash-toggle-btn i');
+                        if(icon) icon.className = "fas fa-minus";
+                    } 
+                    else if (window.scrollY > 150 && !bar.classList.contains('minimized')) {
+                        if (window.autoMinimizeAllowed) {
+                            bar.classList.add('minimized');
+                            const icon = document.querySelector('#dash-toggle-btn i');
+                            if(icon) icon.className = "fas fa-plus-circle";
+                        }
+                    }
+                }
+            });
+
+            window.autoMinimizeAllowed = false;
+            setTimeout(() => {
+                window.autoMinimizeAllowed = true;
+                if (window.scrollY > 150) {
+                     const bar = document.getElementById('user-top-bar');
+                     bar.classList.add('minimized');
+                     const icon = document.querySelector('#dash-toggle-btn i');
+                     if(icon) icon.className = "fas fa-plus-circle";
+                }
+            }, 5000);
         }
+
+        // Dashboard Bubble Toggle Logic (Mobile Only)
+        window.toggleDashboardManual = (e) => {
+            e.stopPropagation();
+            const bar = document.getElementById('user-top-bar');
+            bar.classList.toggle('minimized');
+            window.autoMinimizeAllowed = false; 
+            const icon = document.querySelector('#dash-toggle-btn i');
+            if(bar.classList.contains('minimized')) {
+                icon.className = "fas fa-plus-circle";
+            } else {
+                icon.className = "fas fa-minus";
+            }
+        };
+
+        window.toggleDashboardBubble = (e) => {
+            const bar = document.getElementById('user-top-bar');
+            if(window.innerWidth <= 768 && bar.classList.contains('minimized')) {
+                bar.classList.remove('minimized');
+                window.autoMinimizeAllowed = false; 
+                const icon = document.querySelector('#dash-toggle-btn i');
+                if(icon) icon.className = "fas fa-minus";
+            }
+        };
 
         document.getElementById('btn-logout').onclick = () => {
             document.getElementById('logout-modal').classList.add('show');
@@ -504,9 +770,6 @@
                 document.getElementById('modal-title').innerText = "Verification Error";
                 document.getElementById('modal-desc').innerText = "Please enter exactly 10 digits for your professional WhatsApp number.";
                 document.getElementById('order-summary-display').style.display = 'none';
-                // Hide screenshot notice if it exists
-                const sn = document.getElementById('screenshot-notice');
-                if(sn) sn.style.display = 'none';
                 modal.classList.add('show');
                 return;
             }
@@ -518,12 +781,28 @@
                 phone: phoneVal
             };
             localStorage.setItem('kombat_user', JSON.stringify(uData));
-            window.location.href = 'store.html'; // REDIRECT TO STORE
+            window.location.reload(); 
         };
 
         checkShopAccess();
 
+        function updateCartCount() {
+            let total = 0;
+            Object.values(cartData).forEach(qty => total += qty);
+            document.querySelectorAll('.cart-count').forEach(el => el.innerText = total);
+        }
+
+        const goToStore = () => window.location.href = 'store.html';
+        const goToCart = () => window.location.href = 'cart.html';
+        
+        const headerCart = document.getElementById('header-cart');
+        if(headerCart) headerCart.onclick = goToCart;
+        
+        const fabCart = document.getElementById('btn-cart');
+        if(fabCart) fabCart.onclick = goToStore; // When on cart, FAB cart link takes you back to store to add more
+
         function renderCart() {
+            updateCartCount();
             const body = document.getElementById('cart-items-body');
             const emptyMsg = document.getElementById('empty-msg');
             const cartTable = document.getElementById('cart-table');
