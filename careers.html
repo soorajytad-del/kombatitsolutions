@@ -113,7 +113,7 @@
                         <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.95rem;">Design and implement secure banking networks. Requires 4+ years of Cisco/Juniper experience.</p>
                     </div>
                     <div class="job-action">
-                        <a href="https://wa.me/917025064441?text=Hello,%20I%20would%20like%20to%20apply%20for%20the%20Senior%20Network%20Engineer%20position." target="_blank" class="btn btn-primary">Apply Now</a>
+                        <button onclick="triggerApplyCaptcha(this)" data-wa-link="https://wa.me/917025064441?text=Hello,%20I%20would%20like%20to%20apply%20for%20a%20position%20at%20Kombat." class="btn btn-primary">Apply Now</button>
                     </div>
                 </div>
 
@@ -131,7 +131,7 @@
                         <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.95rem;">Provide immediate on-site break/fix support for enterprise servers and workstations.</p>
                     </div>
                     <div class="job-action">
-                        <a href="https://wa.me/917025064441?text=Hello,%20I%20would%20like%20to%20apply%20for%20the%20Hardware%20Support%20Specialist%20position." target="_blank" class="btn btn-primary">Apply Now</a>
+                        <button onclick="triggerApplyCaptcha(this)" data-wa-link="https://wa.me/917025064441?text=Hello,%20I%20would%20like%20to%20apply%20for%20the%20Hardware%20Support%20Specialist%20position." class="btn btn-primary">Apply Now</button>
                     </div>
                 </div>
                 
@@ -149,7 +149,7 @@
                         <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.95rem;">Specialize in the maintenance and repair of enterprise scanners and banking printer hardware.</p>
                     </div>
                     <div class="job-action">
-                        <a href="https://wa.me/917025064441?text=Hello,%20I%20would%20like%20to%20apply%20for%20the%20Printer%20and%20Peripheral%20Technician%20position." target="_blank" class="btn btn-primary">Apply Now</a>
+                        <button onclick="triggerApplyCaptcha(this)" data-wa-link="https://wa.me/917025064441?text=Hello,%20I%20would%20like%20to%20apply%20for%20the%20Printer%20and%20Peripheral%20Technician%20position." class="btn btn-primary">Apply Now</button>
                     </div>
                 </div>
             </div>
@@ -210,6 +210,90 @@
         </button>
     </div>
 
+    <!-- Careers Captcha Verification Modal -->
+    <div id="careers-captcha-modal" class="custom-modal shadow-box">
+        <div class="modal-content text-center" style="max-width: 450px;">
+            <i class="fas fa-file-signature text-primary" style="font-size: 3rem; margin-bottom: 1.5rem;"></i>
+            <h4 class="animated-gradient" style="margin-bottom: 0.5rem;">Human Verification</h4>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Please complete the security challenge to continue with your professional application.</p>
+            
+            <div class="captcha-container" style="background: rgba(var(--brand-accent-rgb), 0.05); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 12px; justify-content: center;">
+                    <div id="careers-captcha-display" style="background: var(--bg-card); color: var(--brand-accent); font-family: 'Courier New', Courier, monospace; font-weight: 900; font-size: 1.6rem; padding: 12px 25px; border-radius: 8px; border: 1px solid var(--brand-accent); user-select: none; letter-spacing: 5px; text-decoration: line-through; font-style: italic; background-image: radial-gradient(var(--brand-accent) 0.5px, transparent 0.5px); background-size: 4px 4px;">1234</div>
+                    <button type="button" id="refresh-careers-captcha" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem;" title="Refresh Captcha"><i class="fas fa-sync-alt"></i></button>
+                </div>
+                <input type="text" id="careers-captcha-input" placeholder="Enter Challenge Code" required style="width: 100%; margin-top: 15px; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-section); color: var(--text-heading); font-size: 1rem; text-align: center; letter-spacing: 3px;">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button id="verify-careers-captcha" class="btn btn-primary" style="padding: 12px;">Verify & Apply</button>
+                <button id="cancel-careers-captcha" class="btn btn-outline" style="padding: 12px;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script src="js/main.js"></script>
+    <script>
+        let careerCaptchaCode = '';
+        let pendingWaLink = '';
+
+        const generateCareerCaptcha = () => {
+            const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+            let code = '';
+            for(let i=0; i<4; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+            careerCaptchaCode = code;
+            document.getElementById('careers-captcha-display').innerText = code;
+            document.getElementById('careers-captcha-input').value = '';
+        };
+
+        window.triggerApplyCaptcha = (btn) => {
+            pendingWaLink = btn.getAttribute('data-wa-link');
+            generateCareerCaptcha();
+            document.getElementById('careers-captcha-modal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+            if (typeof playNavBeep === 'function') playNavBeep();
+        };
+
+        const refreshBtn = document.getElementById('refresh-careers-captcha');
+        if(refreshBtn) refreshBtn.addEventListener('click', generateCareerCaptcha);
+
+        const cancelBtn = document.getElementById('cancel-careers-captcha');
+        if(cancelBtn) cancelBtn.addEventListener('click', () => {
+            document.getElementById('careers-captcha-modal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        });
+
+        const verifyBtn = document.getElementById('verify-careers-captcha');
+        if(verifyBtn) {
+            verifyBtn.addEventListener('click', () => {
+                const inputCode = document.getElementById('careers-captcha-input').value.toUpperCase();
+                if(inputCode !== careerCaptchaCode) {
+                    if(typeof playNavBeep === 'function') playNavBeep();
+                    const input = document.getElementById('careers-captcha-input');
+                    input.style.borderColor = '#ff4757';
+                    setTimeout(() => input.style.borderColor = 'var(--border-color)', 1000);
+                    generateCareerCaptcha();
+                    return;
+                }
+
+                // Success
+                document.getElementById('careers-captcha-modal').classList.remove('show');
+                document.body.style.overflow = 'auto';
+                
+                const modal = document.getElementById('success-modal');
+                modal.classList.add('show');
+                document.getElementById('modal-title').innerText = "Application Verified!";
+                document.getElementById('modal-desc').innerText = "You will now be redirected to our career WhatsApp portal to submit your resume.";
+
+                setTimeout(() => {
+                    window.open(pendingWaLink, '_blank');
+                    modal.classList.remove('show');
+                }, 2000);
+            });
+        }
+        
+        const closeSuccess = document.getElementById('close-modal-careers');
+        if(closeSuccess) closeSuccess.onclick = () => document.getElementById('success-modal').classList.remove('show');
+    </script>
 </body>
 </html>
