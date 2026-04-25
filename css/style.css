@@ -1043,7 +1043,7 @@ img {
 }
 
 @media (max-width: 768px) {
-    .cookie-popup {
+    .cookie-popup.show {
         bottom: 20px;
         left: 20px;
         right: 20px;
