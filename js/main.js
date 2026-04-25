@@ -374,6 +374,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 contactCaptchaModal.classList.remove('show');
                 document.body.style.overflow = 'auto';
 
+                const name = document.getElementById('name').value.toUpperCase();
+                const email = document.getElementById('email').value.toLowerCase();
+                const message = document.getElementById('message').value;
+
                 const btnSubmit = contactForm.querySelector('.btn-submit');
                 const originalText = btnSubmit.innerHTML;
                 btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Request...';
@@ -381,10 +385,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 setTimeout(() => {
                     btnSubmit.innerHTML = '<i class="fas fa-check"></i> Request Verified';
+                    
+                    // Construct WhatsApp Message
+                    const orderId = Math.floor(100000 + Math.random() * 900000); // Unique request ID
+                    let waMsg = `*KOMBAT IT SOLUTIONS - Service Request [#${orderId}]*\n`;
+                    waMsg += `------------------------------------------------\n`;
+                    waMsg += `• *Client:* ${name}\n`;
+                    waMsg += `• *Email:* ${email}\n`;
+                    waMsg += `------------------------------------------------\n`;
+                    waMsg += `*Message:* \n${message}\n\n`;
+                    waMsg += `_Request verified via Secure-Gate._`;
+
+                    const encodedMsg = encodeURIComponent(waMsg);
+                    window.open(`https://wa.me/917025064441?text=${encodedMsg}`, '_blank');
+
                     setTimeout(() => {
                         if (successModal) {
-                            document.getElementById('modal-title').innerText = "Request Received!";
-                            document.getElementById('modal-desc').innerText = "Your enterprise service request has been verified and logged in our secure system.";
+                            document.getElementById('modal-title').innerText = "Request Sent Successfully!";
+                            document.getElementById('modal-desc').innerText = "Your verified inquiry has been transmitted to our corporate WhatsApp team. An account manager will respond shortly.";
                             successModal.classList.add('show');
                             if (typeof playNavBeep === 'function') playNavBeep();
                         }

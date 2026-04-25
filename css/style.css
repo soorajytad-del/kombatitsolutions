@@ -1172,15 +1172,10 @@ img {
 }
 
 .creator-credits {
-    margin-top: 10px;
-    font-size: 0.85rem;
-    opacity: 0.8;
-}
-
-.pulse-heart {
-    color: #e74c3c;
-    animation: heartBeat 1.5s infinite;
-    display: inline-block;
+    margin-top: 15px;
+    font-size: 0.7rem;
+    opacity: 0.5;
+    letter-spacing: 0.5px;
 }
 
 .creator-link {
@@ -1540,30 +1535,23 @@ textarea.form-control {
 
 /* --- PRIVACY LINK ENHANCEMENTS --- */
 .privacy-link {
-    color: var(--brand-accent) !important; /* Authentic Brand Blue */
+    color: var(--text-muted) !important;
     text-decoration: none;
     font-size: 0.85rem;
-    font-weight: 700;
-    padding: 6px 15px;
-    border: 1px solid rgba(0, 168, 255, 0.2);
-    border-radius: 6px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-weight: 600;
+    transition: var(--transition);
     display: inline-block;
     position: relative;
-    letter-spacing: 0.5px;
-    margin-bottom: 5px;
+    padding-bottom: 2px;
 }
 
 .privacy-link:hover {
-    color: #ffffff !important;
-    background: var(--brand-accent);
-    border-color: var(--brand-accent);
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 6px 15px rgba(0, 168, 255, 0.3);
+    color: var(--brand-accent) !important;
+    text-decoration: underline;
 }
 
 .privacy-link::after {
     content: ' 🛡️';
-    font-size: 0.75rem;
-    opacity: 0.8;
+    font-size: 0.7rem;
+    opacity: 0.6;
 }
