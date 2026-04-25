@@ -255,14 +255,19 @@
                         <div class="divider">
                             <span>OR GET IN TOUCH INSTANTLY</span>
                         </div>
-                        
-                        <a href="https://wa.me/917025064441?text=Hello,%20I%20would%20like%20to%20get%20a%20hardware/service%20quote." target="_blank" class="btn btn-action btn-whatsapp">
-                            <i class="fab fa-whatsapp"></i> Get Quote via WhatsApp
-                        </a>
-                        
-                        <a href="mailto:support@kombatitsolutions.in" class="btn btn-action btn-email">
-                            <i class="fas fa-envelope"></i> Write an Email
-                        </a>
+                        <div class="contact-actions-grid">
+                            <a href="https://wa.me/917025064441?text=Hello,%20I%20would%20like%20to%20get%20a%20hardware/service%20quote." target="_blank" class="btn btn-whatsapp btn-sm-attractive">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                            
+                            <a href="tel:+917025064441" class="btn btn-phone btn-sm-attractive">
+                                <i class="fas fa-phone-alt"></i> Call Us
+                            </a>
+
+                            <a href="mailto:support@kombatitsolutions.in" class="btn btn-email btn-sm-attractive">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -313,7 +318,9 @@
     <div class="fab-wrapper" id="fab-wrapper">
         <div class="fab-menu" id="fab-menu">
             <button class="fab-item btn-scroll-top" id="btn-top-scroll" title="Back to Top"><i class="fas fa-chevron-up"></i></button>
+            <button class="fab-item btn-scroll-down" id="btn-down-scroll" title="Scroll to Bottom"><i class="fas fa-chevron-down"></i></button>
             <button class="fab-item btn-refresh" id="btn-refresh" title="Refresh Page"><i class="fas fa-sync-alt"></i></button>
+            <button class="fab-item btn-phone" id="btn-call" title="Call Us" onclick="window.location.href='tel:+917025064441'"><i class="fas fa-phone-alt"></i></button>
         </div>
         <button class="fab-main shadow-box" id="fab-main" title="Quick Tools">
             <i class="fas fa-toolbox main-icon"></i>
@@ -344,26 +351,38 @@
     </div>
 
     <!-- Google Rating Prompt Modal -->
-    <div id="rating-modal" class="custom-modal shadow-box">
-        <div class="modal-content text-center" style="max-width: 400px; padding: 2.5rem; position: relative;">
+    <div id="rating-modal" class="custom-modal rating-modal-enhanced">
+        <div class="modal-content glass-card rating-card-content">
             <!-- Modal Close Action (Initially Hidden) -->
-            <button id="close-rating-modal" style="display: none; position: absolute; top: 15px; right: 20px; background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+            <button id="close-rating-modal" class="rating-close-btn" style="display: none;"><i class="fas fa-times"></i></button>
             
-            <!-- Strategic Countdown Timer -->
-            <div id="rating-countdown-wrapper" style="position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; background: rgba(var(--brand-accent-rgb), 0.1); width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--border-color);">
+            <!-- Strategic Countdown Ring -->
+            <div id="rating-countdown-wrapper" class="countdown-ring-container">
+                <svg class="countdown-svg">
+                    <circle class="ring-bg" cx="20" cy="20" r="18"></circle>
+                    <circle id="countdown-progress" class="ring-progress" cx="20" cy="20" r="18"></circle>
+                </svg>
                 <span id="rating-countdown">7</span>
             </div>
 
-            <div class="rating-stars" style="color: #ffb800; font-size: 2.2rem; margin-bottom: 1rem; filter: drop-shadow(0 0 10px rgba(255, 184, 0, 0.3));">
+            <div class="google-badge">
+                <i class="fab fa-google"></i> Verified Partner
+            </div>
+
+            <div class="rating-stars-animated">
                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
             </div>
-            <h4 class="animated-gradient" style="margin-bottom: 0.8rem; font-size: 1.3rem;">Experience Excellence?</h4>
-            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">If you are satisfied with our IT services and B2B procurement, please consider sharing your professional feedback on Google.</p>
             
-            <a href="https://share.google/fotZWDMyJhGfNzO3E" target="_blank" class="btn btn-primary" style="width: 100%; padding: 1rem; border-radius: 12px; font-weight: 700; letter-spacing: 0.5px; text-decoration: none; display: inline-block;">
-                RATE KOMBAT IT SOLUTIONS <i class="fas fa-external-link-alt" style="margin-left: 8px; font-size: 0.8rem;"></i>
+            <h4 class="animated-gradient">Experience Excellence?</h4>
+            <p class="rating-description">If you are satisfied with our IT services and B2B procurement, please share your professional feedback on Google.</p>
+            
+            <a href="https://share.google/fotZWDMyJhGfNzO3E" target="_blank" class="btn btn-primary btn-shimmer">
+                RATE KOMBAT IT SOLUTIONS <i class="fas fa-external-link-alt"></i>
             </a>
-            <p style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-muted); opacity: 0.7;">Your reviews help us maintain elite service standards.</p>
+            
+            <div class="rating-footer-note">
+                <i class="fas fa-shield-check"></i> Secure Feedback Protocol
+            </div>
         </div>
     </div>
 

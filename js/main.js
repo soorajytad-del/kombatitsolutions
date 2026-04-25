@@ -267,6 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fabWrapper = document.getElementById('fab-wrapper');
     const fabMain = document.getElementById('fab-main');
     const btnTop = document.getElementById('btn-top-scroll');
+    const btnDown = document.getElementById('btn-down-scroll');
     const btnCart = document.getElementById('btn-cart');
     const btnRefresh = document.getElementById('btn-refresh');
 
@@ -292,6 +293,15 @@ document.addEventListener('DOMContentLoaded', () => {
             btnTop.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 fabWrapper.classList.remove('open');
+            });
+        }
+
+        // Tool: Scroll to Bottom
+        if(btnDown) {
+            btnDown.addEventListener('click', () => {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                fabWrapper.classList.remove('open');
+                if (typeof playNavBeep === 'function') playNavBeep();
             });
         }
 
@@ -432,9 +442,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const triggerRatingCountdown = () => {
         let timeLeft = 7;
+        const progressRing = document.getElementById('countdown-progress');
+        const circumference = 113.1; // 2 * PI * 18
+
         const interval = setInterval(() => {
             timeLeft--;
             if(ratingCountdown) ratingCountdown.innerText = timeLeft;
+            
+            // Update Progress Ring
+            if (progressRing) {
+                const offset = circumference - (timeLeft / 7) * circumference;
+                progressRing.style.strokeDashoffset = offset;
+            }
+
             if(timeLeft <= 0) {
                 clearInterval(interval);
                 if(ratingTimerWrapper) ratingTimerWrapper.style.display = 'none';
