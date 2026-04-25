@@ -942,12 +942,24 @@ img {
 
 @media (max-width: 480px) {
     .contact-actions-grid {
-        grid-template-columns: 1fr !important;
-        gap: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
     .btn-sm-attractive {
         width: 100%;
-        padding: 0.85rem;
+        padding: 0.9rem;
+        font-size: 0.85rem;
+        justify-content: flex-start;
+        padding-left: 20%;
+    }
+}
+
+/* Extra focus for ultra-narrow (5.1") devices */
+@media (max-width: 360px) {
+    .contact-info, .contact-actions { padding: 2rem 1rem; }
+    .btn-sm-attractive {
+        padding-left: 15%;
         font-size: 0.8rem;
     }
 }
@@ -1032,6 +1044,7 @@ img {
 
 @media (max-width: 768px) {
     .cookie-popup {
+        bottom: 20px;
         left: 20px;
         right: 20px;
         max-width: 100%;
@@ -1561,7 +1574,10 @@ textarea.form-control {
     .services-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
     .actions-wrapper h3 { font-size: 1.5rem; }
     
-    .contact-grid { overflow: visible; } /* Allow shadows but prevent clipping */
+    .contact-grid { 
+        grid-template-columns: 1fr; 
+        overflow: visible; 
+    }
 }
 
 @media (max-width: 480px) {
@@ -1755,4 +1771,33 @@ textarea.form-control {
 
 .rating-footer-note i {
     color: var(--brand-accent);
+}
+
+@media (max-width: 480px) {
+    .rating-modal-enhanced .rating-card-content {
+        width: 90%;
+        max-width: 340px;
+        padding: 2.5rem 1.5rem 2rem;
+    }
+    .rating-stars-animated {
+        font-size: 2rem;
+    }
+    .rating-description {
+        font-size: 0.85rem;
+    }
+    .google-badge {
+        padding: 4px 12px;
+        font-size: 0.65rem;
+    }
+    .countdown-ring-container, .rating-close-btn {
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 360px) {
+    .rating-modal-enhanced .rating-card-content {
+        width: 95%;
+        padding: 2.5rem 1rem 1.5rem;
+    }
 }

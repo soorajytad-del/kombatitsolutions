@@ -445,6 +445,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const progressRing = document.getElementById('countdown-progress');
         const circumference = 113.1; // 2 * PI * 18
 
+        // Initialize immediately
+        if (progressRing) progressRing.style.strokeDashoffset = '0';
+        if (ratingCountdown) ratingCountdown.innerText = timeLeft;
+
         const interval = setInterval(() => {
             timeLeft--;
             if(ratingCountdown) ratingCountdown.innerText = timeLeft;
